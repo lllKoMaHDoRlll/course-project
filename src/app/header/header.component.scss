@@ -1,0 +1,12 @@
+@import "./../../styles";
+
+.header {
+  background-color: $color-primary;
+  display: flex;
+  flex-direction: row;
+  font-size: 2rem;
+  color: $color-white;
+  padding: .2em .4em;
+}
+
+
