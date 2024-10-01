@@ -1,0 +1,12 @@
+<div class="profile-card">
+  <div class="profile-card__avatar">
+    <img [src]="userData!.profileImagePath ? userData!.profileImagePath : './assets/images/blank_profile.jpg'" alt="Avatar image">
+  </div>
+  <div class="profile-card__name">
+    <span>{{userData!.name}}</span>
+  </div>
+  <div class="profile-card__credentials">
+    <p class="profile-card__credentials__email">Почта: </p><span>{{userData!.email}}</span>
+    <p class="profile-card__credentials__phone">Телефон: </p><span>{{userData!.phoneNumber}}</span>
+  </div>
+</div>
