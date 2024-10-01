@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ConnectedWallet, TonConnect, TonConnectUI, Wallet } from '@tonconnect/ui';
+import { TonConnect, TonConnectUI, Wallet } from '@tonconnect/ui';
 
 @Injectable({
   providedIn: 'root'

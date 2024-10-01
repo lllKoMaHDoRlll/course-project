@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { UserData } from '../user-data';
-import { ProfileCardComponent } from '../profile-card/profile-card.component';
+import { Component } from '@angular/core';
+import { UserData } from '../../interfaces/user-data';
+import { ProfileCardComponent } from '../../components/profile-card/profile-card.component';
 
 
 const userData: UserData = {

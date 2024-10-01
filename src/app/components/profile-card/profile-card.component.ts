@@ -1,5 +1,6 @@
+
 import { Component, Input } from '@angular/core';
-import { UserData } from '../user-data';
+import { UserData } from '../../interfaces/user-data';
 import { TonConnectButtonComponent } from '../ton-connect-button/ton-connect-button.component';
 
 @Component({

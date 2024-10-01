@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { TonConnect, TonConnectUI } from '@tonconnect/ui';
-import tonConnectService from '../ton-connect.service';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import tonConnectService from '../../services/ton-connect.service';
 
 
 @Component({
