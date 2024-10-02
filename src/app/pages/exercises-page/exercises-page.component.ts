@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
-import { ExerciseCardData } from '../../interfaces/exercise-card-data';
+import { ExerciseCardData, exercisesMap } from '../../interfaces/exercise-card-data';
 import {faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const exerciseCardDataList: ExerciseCardData[] = [
   {
@@ -41,4 +42,11 @@ const exerciseCardDataList: ExerciseCardData[] = [
 })
 export class ExercisesPageComponent {
   exerciseCardDataList = exerciseCardDataList;
+  exercisesMap = exercisesMap;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  goTo = (path: string) => {
+    this.router.navigate([path], {relativeTo: this.route});
+  }
 }

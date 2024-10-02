@@ -1,4 +1,4 @@
 
 <div class="exercises-list">
-  <app-exercise-card *ngFor="let exerciseCardData of exerciseCardDataList" [exerciseCardData]="exerciseCardData"/>
+  <app-exercise-card *ngFor="let exerciseCardData of exerciseCardDataList" [exerciseCardData]="exerciseCardData" (click)="goTo(exercisesMap.get(exerciseCardData.id)!)"></app-exercise-card>
 </div>
