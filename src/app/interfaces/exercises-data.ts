@@ -1,2 +1,4 @@
-export interface ExercisesData {
+export interface ExerciseSentencesData {
+  sentence: [number, string][];
+  translation: string;
 }
