@@ -12,11 +12,6 @@
   border: 1px solid $color-light-gray;
   border-radius: 2em;
 
-  -webkit-box-shadow: 0px 0px 200px -83px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 200px -83px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 200px -83px rgba(0,0,0,0.75);
-
-
   .profile-card__avatar {
     object-fit: cover;
     object-position: 50% 50%;
