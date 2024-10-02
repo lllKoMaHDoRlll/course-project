@@ -1,1 +1,7 @@
-<p>home-page works!</p>
+<div class="container">
+  <div class="menu">
+    <app-button [colorTheme]="buttonsThemes[0]" (click)="goTo('exercises')">Упражнения</app-button>
+    <app-button [colorTheme]="buttonsThemes[1]" (click)="goTo('achievments')">Достижения</app-button>
+    <app-button [colorTheme]="buttonsThemes[2]" (click)="goTo('profile')">Профиль</app-button>
+  </div>
+</div>
