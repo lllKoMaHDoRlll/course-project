@@ -1,0 +1,55 @@
+@import "./../../../../styles";
+
+.exercise-card {
+  border: 1px solid $color-light-gray;
+  border-radius: 1em;
+  max-width: 75%;
+  margin: auto auto;
+  font-size: 1.5rem;
+  padding: 1em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+
+  .exercise-card__translation {
+    text-align: center;
+  }
+
+  .exercise-card__answer-cells {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5em;
+
+
+    .exercise-card__answer-cells__cell {
+      list-style: none;
+      min-width: 50px;
+      min-height: 30px;
+      border-bottom: 1px solid $color-black;
+    }
+  }
+
+  .exercise-card__sentence-words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .exercise-card__sentence-words__word {
+      position: relative;
+      top: 0;
+      left: 0;
+      padding: .2em;
+      margin: .2em;
+      border: 1px solid $color-light-gray;
+      border-radius: .5em;
+    }
+  }
+}
+
+.loading-wrapper {
+  width: max-content;
+  margin: auto auto;
+}
