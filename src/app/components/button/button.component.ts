@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-export const enum ColorThemes {
-  PRIMARY = "primary",
-  ACCEPT = "accept",
-  DENY = "deny",
-  NEUTRAL = "neutral",
-  SECONDARY = "secondary"
-}
+export type ColorThemes =
+  "primary" |
+  "accept"  |
+  "deny"    |
+  "neutral" |
+  "secondary"
+;
 
 @Component({
   selector: 'app-button',
@@ -16,5 +16,5 @@ export const enum ColorThemes {
   styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
-  @Input() colorTheme: ColorThemes = ColorThemes.PRIMARY;
+  @Input() colorTheme: ColorThemes = "primary";
 }

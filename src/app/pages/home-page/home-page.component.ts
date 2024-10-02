@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent {
   router = new Router();
-  buttonsThemes = [ColorThemes.PRIMARY, ColorThemes.ACCEPT, ColorThemes.NEUTRAL];
 
   goTo = (path: string) => {
     this.router.navigate([path]);
