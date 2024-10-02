@@ -1,0 +1,22 @@
+@import "./../../../styles";
+
+@keyframes spin {
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  margin: auto auto;
+  font-size: 3rem;
+  color: $color-light-gray;
+
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+
+  position: relative;
+}
+
+
