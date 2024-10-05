@@ -9,11 +9,30 @@
       <div class="exercise-card__sentence-words">
         <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData.sentence" (touchmove)="moveWord($event, word[0])" (touchend)="stopMoveWord($event, word[0])">{{word[1]}}</span>
       </div>
-      <app-button>Проверить</app-button>
+      <app-button (click)="handleAsnwer()">Проверить</app-button>
     </div>
   </ng-container>
   <ng-template #elseTemplate>
     <app-loading class="loading-wrapper"/>
   </ng-template>
-
 </div>
+<div [class]="answerResult != -2 ? 'answer-modal answer-modal--active' : 'answer-modal'">
+  <div class="answer-modal__content container">
+    <div class="answer-card">
+      <ng-container *ngIf="answerResult == -1; else elseTemplate2">
+        <app-loading class="loading-wrapper"/>
+      </ng-container>
+      <ng-template #elseTemplate2>
+        <div [class]="answerResult == 1 ? 'answer-card__result' : 'answer-card__result answer-card__result--incorrect'">
+          <fa-icon [icon]="answerResult == 1 ? faCircleCheck : faCircleXmark" />
+          <span>{{answerResult == 1 ? "Поздравляю! Вы справились." : "Упс... Попробуйте еще раз"}}</span>
+        </div>
+        <div class="answer-card__buttons">
+          <app-button (click)="resetExercise()">Еще раз</app-button>
+          <app-button [colorTheme]="'neutral'" (click)="goBack()">Выход</app-button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+

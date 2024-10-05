@@ -4,12 +4,15 @@ import { ExerciseSentencesData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 import { LoadingComponent } from '../../loading/loading.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-exercise-sentences',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LoadingComponent],
+  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule],
   templateUrl: './exercise-sentences.component.html',
   styleUrl: './exercise-sentences.component.scss'
 })
@@ -19,8 +22,12 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   wordsPoints: ElementPoint[] = [];
   lastTouchPosition: number[] | null = null;
   answersSlots: ElementPoint[] = [];
+  answerResult: -2 | -1 | 0 | 1 = -2;
 
-  constructor(private elementRef: ElementRef) { }
+  faCircleCheck = faCircleCheck;
+  faCircleXmark = faCircleXmark;
+
+  constructor(private router: Router, private elementRef: ElementRef) { }
 
   async ngAfterViewInit() {
     this.exerciseData = await exercisesService.getRandomExerciseSentenceData();
@@ -81,5 +88,42 @@ export class ExerciseSentencesComponent implements AfterViewInit{
       let rect = el.getBoundingClientRect();
       this.answersSlots[index] = new ElementPoint((rect.left + rect.right) / 2, (rect.top + rect.bottom) / 2, 0, 0, el as HTMLLIElement);
     });
+  }
+
+  handleAsnwer = async () => {
+    let answer: string[] = [];
+    for (let i = 0; i < this.wordsPoints.length; i++) {
+      if (!(this.wordsPoints[i].elementRef?.innerText)) {
+        console.log("empty");
+        return;
+      }
+      answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
+    }
+    this.answerResult = -1;
+    const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
+    if (result) this.answerResult = 1;
+    else this.answerResult = 0;
+  }
+
+  goBack = () => {
+    this.router.navigate(['exercises']);
+  }
+
+  resetExercise = async () => {
+    this.exerciseData = undefined;
+    this.wordsContainerRef = null;
+    this.wordsPoints = [];
+    this.lastTouchPosition = null;
+    this.answersSlots = [];
+    this.answerResult = -2;
+
+    this.exerciseData = await exercisesService.getRandomExerciseSentenceData();
+    for (let i = 0; i < this.exerciseData.sentence.length; i++) {
+      this.wordsPoints.push(new ElementPoint());
+    }
+    setTimeout(() => {
+      this.wordsContainerRef = (this.elementRef.nativeElement as HTMLDivElement).querySelector("div.exercise-card__sentence-words");
+      this.calculateAbsSlotsPositions();
+    }, 500);
   }
 }

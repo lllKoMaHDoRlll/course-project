@@ -53,3 +53,81 @@
   width: max-content;
   margin: auto auto;
 }
+
+.answer-modal {
+  position: absolute;
+  z-index: 100;
+  width: 100dvw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  visibility: hidden;
+
+  transition: all .5s ease-in;
+  background-color: rgba(0, 0, 0, 0);
+
+  .answer-modal__content {
+    transition: all .5s ease-in;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 100dvh;
+  }
+}
+
+.answer-modal--active {
+  background-color: rgba(0, 0, 0, 0.75);
+  top: 0;
+  transition: all .5s ease-in;
+  visibility: visible;
+
+  .answer-modal__content {
+    transition: all .5s ease-in;
+    top: 0;
+  }
+}
+
+.answer-card {
+  background-color: #FFF;
+  width: max-content;
+  max-width: 95dvw;
+  max-height: calc(100% - 4em);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 1em;
+  padding: 1em;
+  margin: auto auto;
+
+  .answer-card__result {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    fa-icon {
+      color: $color-agree;
+      font-size: 3rem;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  .answer-card__result--incorrect {
+    fa-icon {
+      color: $color-deny;
+    }
+  }
+
+  .answer-card__buttons {
+    display: flex;
+    width: 100%;
+
+    app-button {
+      width: 50%;
+    }
+  }
+}
