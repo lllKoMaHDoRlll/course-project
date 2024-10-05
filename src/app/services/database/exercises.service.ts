@@ -11,6 +11,7 @@ class ExercisesService {
   getRandomExerciseSentenceData = (): Promise<ExerciseSentencesData> => {
     let words = "What a wonderful day today!".split(" ");
     const translation = "Какой замечательный день сегодня!";
+    const id = 1;
     let sentence: [number, string][] = [];
     let index = 0;
     while (words.length > 0) {
@@ -20,12 +21,23 @@ class ExercisesService {
       index++;
     }
     const result: ExerciseSentencesData = {
+      id: id,
       sentence: sentence,
       translation: translation
     };
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(result);
+      }, 1000);
+    });
+  }
+
+  checkSentenceAnswer(sentenceId: number, answer: string): Promise<boolean> {
+    let res = false;
+    if (answer == "What a wonderful day today!") res = true;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(res);
       }, 1000);
     });
   }
