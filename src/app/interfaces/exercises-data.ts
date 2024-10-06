@@ -3,3 +3,8 @@ export interface ExerciseSentencesData {
   sentence: [number, string][];
   translation: string;
 }
+
+export interface ExerciseWordsData {
+  id: number;
+  words: [number, string, string][];
+}
