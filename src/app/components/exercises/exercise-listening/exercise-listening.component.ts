@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlay, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
 import { exercisesService } from '../../../services/database/exercises.service';
 import { AnswerStatus, ExerciseListeningData } from '../../../interfaces/exercises-data';
@@ -23,8 +23,6 @@ export class ExerciseListeningComponent implements AfterViewInit {
   answerStatus: AnswerStatus = "not-answered";
 
   faPlay = faPlay;
-  faCircleCheck = faCircleCheck;
-  faCircleXmark = faCircleXmark;
 
   constructor(private router: Router) {}
 

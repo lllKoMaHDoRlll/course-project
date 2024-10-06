@@ -2,18 +2,16 @@ import { AnswerStatus } from './../../../interfaces/exercises-data';
 import { Component, ElementRef } from '@angular/core';
 import { ExerciseWordsData } from '../../../interfaces/exercises-data';
 import { ElementPoint, exercisesService } from '../../../services/database/exercises.service';
-import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
 
 @Component({
   selector: 'app-exercise-words',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, FontAwesomeModule, ExerciseAnswerCardComponent, LoadingForComponent],
+  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent],
   templateUrl: './exercise-words.component.html',
   styleUrl: './exercise-words.component.scss'
 })
@@ -24,9 +22,6 @@ export class ExerciseWordsComponent {
   lastTouchPosition: number[] | null = null;
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
-
-  faCircleCheck = faCircleCheck;
-  faCircleXmark = faCircleXmark;
 
   constructor(private router: Router, private elementRef: ElementRef) { }
 

@@ -3,8 +3,6 @@ import {ElementPoint, exercisesService, Point} from './../../../services/databas
 import { AnswerStatus, ExerciseSentencesData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from "../../loading-for/loading-for.component";
@@ -13,7 +11,7 @@ import { LoadingForComponent } from "../../loading-for/loading-for.component";
 @Component({
   selector: 'app-exercise-sentences',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, FontAwesomeModule, ExerciseAnswerCardComponent, LoadingForComponent, LoadingForComponent],
+  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent, LoadingForComponent],
   templateUrl: './exercise-sentences.component.html',
   styleUrl: './exercise-sentences.component.scss'
 })
@@ -24,9 +22,6 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   lastTouchPosition: number[] | null = null;
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
-
-  faCircleCheck = faCircleCheck;
-  faCircleXmark = faCircleXmark;
 
   constructor(private router: Router, private elementRef: ElementRef) { }
 
