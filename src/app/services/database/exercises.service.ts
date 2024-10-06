@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { ExerciseSentencesData } from '../../interfaces/exercises-data';
+import { ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,27 @@ class ExercisesService {
         resolve(res);
       }, 1000);
     });
+  }
+
+  getRandomExerciseWordsData = (): Promise<ExerciseWordsData> => {
+    const id = 1;
+    const words: [number, string, string][] = [
+      [0, "weather", "погода"],
+      [1, "resolution", "разрешение"],
+      [2, "addiction", "привыкание"],
+      [3, "exercise", "упражнение"],
+      [4, "page", "страница"]
+    ];
+    const exerciseWordsData: ExerciseWordsData = {
+      id: id,
+      words: words
+    };
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(exerciseWordsData)
+      }, 1000);
+    })
   }
 }
 
