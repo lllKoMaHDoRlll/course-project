@@ -1,0 +1,36 @@
+<div class="container">
+  <ng-container *ngIf="exerciseListeningData; else elseTemplate">
+    <div class="exercise-card light-shadow">
+      <div class="exercise-card__audio" (click)="play($event)">
+        <fa-icon [icon]="faPlay"></fa-icon>
+        <audio><source [src]="exerciseListeningData.audioFilePath"></audio>
+      </div>
+      <div class="exercise-card__answer">
+        <input type="text" name="answer" id="answer">
+      </div>
+      <app-button (click)="handleAnswer()">Проверить</app-button>
+    </div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <app-loading class="loading-wrapper"/>
+  </ng-template>
+</div>
+<div [class]="answerResult != -2 ? 'answer-modal answer-modal--active' : 'answer-modal'">
+  <div class="answer-modal__content container">
+    <div class="answer-card">
+      <ng-container *ngIf="answerResult == -1; else elseTemplate2">
+        <app-loading class="loading-wrapper"/>
+      </ng-container>
+      <ng-template #elseTemplate2>
+        <div [class]="answerResult == 1 ? 'answer-card__result' : 'answer-card__result answer-card__result--incorrect'">
+          <fa-icon [icon]="answerResult == 1 ? faCircleCheck : faCircleXmark" />
+          <span>{{answerResult == 1 ? "Поздравляю! Вы справились." : "Упс... Попробуйте еще раз"}}</span>
+        </div>
+        <div class="answer-card__buttons">
+          <app-button (click)="resetExercise()">Еще раз</app-button>
+          <app-button [colorTheme]="'neutral'" (click)="goBack()">Выход</app-button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
