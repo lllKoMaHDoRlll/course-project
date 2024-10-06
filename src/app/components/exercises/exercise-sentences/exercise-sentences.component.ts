@@ -7,12 +7,13 @@ import { LoadingComponent } from '../../loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 
 
 @Component({
   selector: 'app-exercise-sentences',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule],
+  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule, ExerciseAnswerCardComponent],
   templateUrl: './exercise-sentences.component.html',
   styleUrl: './exercise-sentences.component.scss'
 })

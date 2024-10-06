@@ -7,11 +7,12 @@ import { AnswerStatus, ExerciseListeningData } from '../../../interfaces/exercis
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
 import { Router } from '@angular/router';
+import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 
 @Component({
   selector: 'app-exercise-listening',
   standalone: true,
-  imports: [FontAwesomeModule, ButtonComponent, CommonModule, LoadingComponent],
+  imports: [FontAwesomeModule, ButtonComponent, CommonModule, LoadingComponent, ExerciseAnswerCardComponent],
   templateUrl: './exercise-listening.component.html',
   styleUrl: './exercise-listening.component.scss'
 })

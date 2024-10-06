@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 import { LoadingComponent } from '../../loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 
 @Component({
   selector: 'app-exercise-words',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule],
+  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule, ExerciseAnswerCardComponent],
   templateUrl: './exercise-words.component.html',
   styleUrl: './exercise-words.component.scss'
 })
