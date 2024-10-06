@@ -14,6 +14,12 @@ export interface ExerciseListeningData {
   audioFilePath: string;
 }
 
+export interface ExerciseGramarData {
+  id: number;
+  taskDescription: string;
+  taskList: [string, string][];
+}
+
 export type AnswerStatus = "correct"   |
                            "incorrect" |
                            "checking"  |
