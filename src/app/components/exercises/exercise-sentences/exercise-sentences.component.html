@@ -1,20 +1,17 @@
 <div class="container">
-  <ng-container *ngIf="exerciseData; else elseTemplate">
+  <app-loading-for [loadingForValue]="exerciseData">
     <div class="exercise-card light-shadow">
-      <p class="exercise-card__translation">{{exerciseData.translation}}</p>
+      <p class="exercise-card__translation">{{exerciseData?.translation}}</p>
       <div class="exercise-card__answer-cells">
-        <li class="exercise-card__answer-cells__cell" *ngFor="let word of exerciseData.sentence" [value]="word[0]">
+        <li class="exercise-card__answer-cells__cell" *ngFor="let word of exerciseData?.sentence" [value]="word[0]">
         </li>
       </div>
       <div class="exercise-card__sentence-words">
-        <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData.sentence" (touchmove)="moveWord($event, word[0])" (touchend)="stopMoveWord($event, word[0])">{{word[1]}}</span>
+        <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData?.sentence" (touchmove)="moveWord($event, word[0])" (touchend)="stopMoveWord($event, word[0])">{{word[1]}}</span>
       </div>
       <app-button (click)="handleAnswer()">Проверить</app-button>
     </div>
-  </ng-container>
-  <ng-template #elseTemplate>
-    <app-loading class="loading-wrapper"/>
-  </ng-template>
+  </app-loading-for>
 </div>
 <div [class]="answerStatus != 'not-answered' ? 'answer-modal answer-modal--active' : 'answer-modal'">
   <app-exercise-answer-card class="answer-modal__content container" [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>

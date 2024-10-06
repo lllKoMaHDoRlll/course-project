@@ -5,14 +5,14 @@ import { ButtonComponent } from '../../button/button.component';
 import { exercisesService } from '../../../services/database/exercises.service';
 import { AnswerStatus, ExerciseListeningData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from '../../loading/loading.component';
 import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
+import { LoadingForComponent } from '../../loading-for/loading-for.component';
 
 @Component({
   selector: 'app-exercise-listening',
   standalone: true,
-  imports: [FontAwesomeModule, ButtonComponent, CommonModule, LoadingComponent, ExerciseAnswerCardComponent],
+  imports: [FontAwesomeModule, ButtonComponent, CommonModule, ExerciseAnswerCardComponent, LoadingForComponent],
   templateUrl: './exercise-listening.component.html',
   styleUrl: './exercise-listening.component.scss'
 })

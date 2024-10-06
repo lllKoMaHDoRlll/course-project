@@ -6,14 +6,14 @@ import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
-import { LoadingComponent } from '../../loading/loading.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
+import { LoadingForComponent } from '../../loading-for/loading-for.component';
 
 @Component({
   selector: 'app-exercise-words',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, LoadingComponent, FontAwesomeModule, ExerciseAnswerCardComponent],
+  imports: [CommonModule, ButtonComponent, FontAwesomeModule, ExerciseAnswerCardComponent, LoadingForComponent],
   templateUrl: './exercise-words.component.html',
   styleUrl: './exercise-words.component.scss'
 })

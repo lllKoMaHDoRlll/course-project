@@ -1,19 +1,16 @@
 <div class="container">
-  <ng-container *ngIf="exerciseListeningData; else elseTemplate">
+  <app-loading-for [loadingForValue]="exerciseListeningData">
     <div class="exercise-card light-shadow">
       <div class="exercise-card__audio" (click)="play($event)">
         <fa-icon [icon]="faPlay"></fa-icon>
-        <audio><source [src]="exerciseListeningData.audioFilePath"></audio>
+        <audio><source [src]="exerciseListeningData?.audioFilePath"></audio>
       </div>
       <div class="exercise-card__answer">
         <input type="text" name="answer" id="answer">
       </div>
       <app-button (click)="handleAnswer()">Проверить</app-button>
     </div>
-  </ng-container>
-  <ng-template #elseTemplate>
-    <app-loading class="loading-wrapper"/>
-  </ng-template>
+  </app-loading-for>
 </div>
 <div [class]="answerStatus != 'not-answered' ? 'answer-modal answer-modal--active' : 'answer-modal'">
   <app-exercise-answer-card class="answer-modal__content container" [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>
