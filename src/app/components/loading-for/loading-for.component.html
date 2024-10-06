@@ -1,0 +1,6 @@
+<ng-container *ngIf="loadingForValue; else showLoading">
+  <ng-content/>
+</ng-container>
+<ng-template #showLoading>
+  <app-loading class="loading-wrapper"/>
+</ng-template>
