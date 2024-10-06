@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-exercise-listening',
   standalone: true,
-  imports: [FontAwesomeModule, ButtonComponent, CommonModule, ExerciseAnswerCardComponent, LoadingForComponent],
+  imports: [FontAwesomeModule, ButtonComponent, CommonModule, ExerciseAnswerCardComponent, LoadingForComponent, ModalComponent],
   templateUrl: './exercise-listening.component.html',
   styleUrl: './exercise-listening.component.scss'
 })

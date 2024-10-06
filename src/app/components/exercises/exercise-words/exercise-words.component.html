@@ -14,7 +14,7 @@
     </div>
   </app-loading-for>
 </div>
-<div [class]="answerStatus != 'not-answered' ? 'answer-modal answer-modal--active' : 'answer-modal'">
-  <app-exercise-answer-card class="answer-modal__content container" [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>
-</div>
+<app-modal [isModalOpen]="answerStatus != 'not-answered'">
+  <app-exercise-answer-card [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>
+</app-modal>
 

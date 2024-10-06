@@ -6,12 +6,13 @@ import { ButtonComponent } from '../../button/button.component';
 import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from "../../loading-for/loading-for.component";
+import { ModalComponent } from '../../modal/modal.component';
 
 
 @Component({
   selector: 'app-exercise-sentences',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent, LoadingForComponent],
+  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent, LoadingForComponent, ModalComponent],
   templateUrl: './exercise-sentences.component.html',
   styleUrl: './exercise-sentences.component.scss'
 })

@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-exercise-words',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent],
+  imports: [CommonModule, ButtonComponent, ExerciseAnswerCardComponent, LoadingForComponent, ModalComponent],
   templateUrl: './exercise-words.component.html',
   styleUrl: './exercise-words.component.scss'
 })
