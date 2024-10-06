@@ -13,3 +13,8 @@ export interface ExerciseListeningData {
   id: number;
   audioFilePath: string;
 }
+
+export type AnswerStatus = "correct"   |
+                           "incorrect" |
+                           "checking"  |
+                           "not-answered";
