@@ -1,0 +1,24 @@
+<div class="container">
+  <app-loading-for [loadingForValue]="exerciseData">
+    <div class="exercise-card light-shadow">
+      <div class="exercise-card__task-description">
+        {{exerciseData?.taskDescription}}
+      </div>
+      <div class="exercise-card__task-list">
+        <div class="exercise-card__task-list__item slot" *ngFor="let task of exerciseData?.taskList; let i=index">
+          <span>{{(i + 1).toString() + ". " + task[0]}}</span>
+          <div class="slot__input">
+            <span class="slot__input__pseudo-input" [innerHTML]="this.userPseudoAnswers[i]"></span>
+            <input type="text" [name]="'task-' + i" [id]="i" (input)="handleInput($event, i)">
+          </div>
+          <span>{{task[1]}}</span>
+        </div>
+      </div>
+      <app-button (click)="handleAnswer()">Проверить</app-button>
+    </div>
+  </app-loading-for>
+</div>
+<app-modal [isModalOpen]="answerStatus != 'not-answered'">
+  <app-exercise-answer-card [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>
+</app-modal>
+

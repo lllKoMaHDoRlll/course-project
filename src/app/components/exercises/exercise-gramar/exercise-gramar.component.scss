@@ -1,0 +1,65 @@
+@import "./../../../../styles";
+
+.exercise-card {
+  border: 1px solid $color-light-gray;
+  border-radius: 1em;
+  max-width: 75%;
+  max-height: 90dvh;
+  overflow-y: auto;
+  margin: auto auto;
+  font-size: 1.2rem;
+  padding: 1em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+
+  .exercise-card__task-description {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .exercise-card__task-list {
+    display: flex;
+    flex-direction: column;
+    gap: .75em;
+  }
+}
+
+.slot{
+  > span {
+    margin-right: .4em;
+  }
+
+  .slot__input{
+    display: inline-block;
+    position: relative;
+    margin-right: .4em;
+    width: fit-content;
+    min-width: 40px;
+    min-height: 1.5rem;
+    border: none;
+    border-bottom: 1px solid $color-gray;
+    font-size: 1.2rem;
+    vertical-align: bottom;
+
+    input{
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .slot__input__pseudo-input {
+      width: 100%;
+      min-width: 40px;
+      position: relative;
+      top: 0;
+      left: 0;
+      word-break: break-all;
+    }
+  }
+}
