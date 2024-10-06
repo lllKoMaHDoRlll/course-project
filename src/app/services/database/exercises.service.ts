@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
+import { ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +61,28 @@ class ExercisesService {
         resolve(exerciseWordsData)
       }, 1000);
     })
+  }
+
+  getRandomExerciseListeningData = (): Promise<ExerciseListeningData> => {
+    const data: ExerciseListeningData = {
+      id: 1,
+      audioFilePath: "./assets/audio/audio_mok.mp3"
+    };
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data);
+      }, 1000);
+    });
+  }
+
+  checkListeningAnswer = (listeningId: number, answer: string): Promise<boolean> => {
+    let res = false;
+    if (answer == "sound") res = true;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(res);
+      }, 1000);
+    });
   }
 }
 
