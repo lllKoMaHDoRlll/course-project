@@ -1,5 +1,9 @@
 @import "./../../../styles";
 
+:host {
+  display: contents;
+}
+
 .answer-card {
   background-color: #FFF;
   width: max-content;
