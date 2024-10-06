@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
+import { ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +81,61 @@ class ExercisesService {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(res);
+      }, 1000);
+    });
+  }
+
+  getRandomExerciseGramarData = (): Promise<ExerciseGramarData> => {
+    const data: ExerciseGramarData = {
+      id: 1,
+      taskDescription: "Заполните пропуски словами в правильной форме",
+      taskList: [
+        ["It was warm, so I", "off my coat. (take)"],
+        ["The film wasn't very good. I", "it very much. (enjoy)"],
+        ["I knew Kate was very busy, so I", "her. (disturb)"],
+        ["I was very tired, so I", "to bed early. (go)"],
+        ["The bed was very uncomfortable. I", "very well. (sleep)"],
+        ["Fabiola wasn't hungry, so she", "anything. (eat)"],
+        ["We went to Laila's house but she", "at home. (be)"],
+        ["It was a funny situation but nobody", ". (laugh)"],
+        ["The window was open and a bird ", "into the room. (fly)"],
+        ["The hotel wasn't very expensive. It", "very much. (cost)"],
+        ["I was in a hurry, so I", "time to phone you. (have)"],
+        ["It was very hard work carrying the bags. They", "very heavy. (be)"],
+      ]
+    };
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data);
+      }, 1000);
+    });
+  }
+
+  checkGramarAnswer = (taskId: number, userAnswer: string[]): Promise<boolean> => {
+    let isCorrect = true;
+    const correctAnswer = [
+      "took",
+      "didn't enjoy",
+      "didn't disturb",
+      "went",
+      "didn't sleep",
+      "didn't eat",
+      "wasn't",
+      "laughted",
+      "flew",
+      "didn't cost",
+      "didn't have",
+      "were"
+    ];
+    for (let i = 0; i < userAnswer.length; i++) {
+      if (correctAnswer[i] != userAnswer[i]) {
+        isCorrect = false;
+        break;
+      }
+    }
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(isCorrect);
       }, 1000);
     });
   }
