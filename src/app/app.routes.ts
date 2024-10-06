@@ -5,6 +5,7 @@ import { ExercisesPageComponent } from './pages/exercises-page/exercises-page.co
 import { ExerciseSentencesComponent } from './components/exercises/exercise-sentences/exercise-sentences.component';
 import { ExerciseWordsComponent } from './components/exercises/exercise-words/exercise-words.component';
 import { ExerciseListeningComponent } from './components/exercises/exercise-listening/exercise-listening.component';
+import { ExerciseGramarComponent } from './components/exercises/exercise-gramar/exercise-gramar.component';
 
 
 export const routes: Routes = [
@@ -14,5 +15,6 @@ export const routes: Routes = [
   {path: "exercises", component: ExercisesPageComponent},
   {path: "exercises/sentences", component: ExerciseSentencesComponent},
   {path: "exercises/words", component: ExerciseWordsComponent},
-  {path: "exercises/listening", component: ExerciseListeningComponent}
+  {path: "exercises/listening", component: ExerciseListeningComponent},
+  {path: "exercises/gramar", component: ExerciseGramarComponent}
 ];
