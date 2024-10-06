@@ -1,0 +1,15 @@
+<div class="answer-card">
+  <ng-container *ngIf="answerStatus == 'checking'; else elseTemplate2">
+    <app-loading class="loading-wrapper"/>
+  </ng-container>
+  <ng-template #elseTemplate2>
+    <div [class]="answerStatus == 'correct' ? 'answer-card__result' : 'answer-card__result answer-card__result--incorrect'">
+      <fa-icon [icon]="answerStatus == 'correct' ? faCircleCheck : faCircleXmark" />
+      <span>{{answerStatus == 'correct' ? "Поздравляю! Вы справились." : "Упс... Попробуйте еще раз"}}</span>
+    </div>
+    <div class="answer-card__buttons">
+      <app-button (click)="exerciseReseted.emit()">Еще раз</app-button>
+      <app-button [colorTheme]="'neutral'" (click)="goBack()">Выход</app-button>
+    </div>
+  </ng-template>
+</div>
