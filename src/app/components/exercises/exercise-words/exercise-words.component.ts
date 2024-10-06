@@ -89,7 +89,7 @@ export class ExerciseWordsComponent {
     });
   }
 
-  handleAsnwer = async () => {
+  handleAnswer = async () => {
     let answer: string[] = [];
     for (let i = 0; i < this.wordsPoints.length; i++) {
       if (!(this.wordsPoints[i].elementRef?.innerText)) {

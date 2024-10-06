@@ -13,7 +13,7 @@
       <div class="exercise-card__sentence-words">
         <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData.words" (touchmove)="moveWord($event, word[0])" (touchend)="stopMoveWord($event, word[0])">{{word[1]}}</span>
       </div>
-      <app-button (click)="handleAsnwer()">Проверить</app-button>
+      <app-button (click)="handleAnswer()">Проверить</app-button>
     </div>
   </ng-container>
   <ng-template #elseTemplate>
