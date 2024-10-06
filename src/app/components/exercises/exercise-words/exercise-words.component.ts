@@ -1,3 +1,4 @@
+import { AnswerStatus } from './../../../interfaces/exercises-data';
 import { Component, ElementRef } from '@angular/core';
 import { ExerciseWordsData } from '../../../interfaces/exercises-data';
 import { ElementPoint, exercisesService } from '../../../services/database/exercises.service';
@@ -21,7 +22,7 @@ export class ExerciseWordsComponent {
   wordsPoints: ElementPoint[] = [];
   lastTouchPosition: number[] | null = null;
   answersSlots: ElementPoint[] = [];
-  answerResult: -2 | -1 | 0 | 1 = -2;
+  answerStatus: AnswerStatus = "not-answered";
 
   faCircleCheck = faCircleCheck;
   faCircleXmark = faCircleXmark;
@@ -98,10 +99,10 @@ export class ExerciseWordsComponent {
       }
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
-    this.answerResult = -1;
+    this.answerStatus = "checking"
     const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
-    if (result) this.answerResult = 1;
-    else this.answerResult = 0;
+    if (result) this.answerStatus = "correct";
+    else this.answerStatus = "incorrect";
   }
 
   goBack = () => {
@@ -114,7 +115,7 @@ export class ExerciseWordsComponent {
     this.wordsPoints = [];
     this.lastTouchPosition = null;
     this.answersSlots = [];
-    this.answerResult = -2;
+    this.answerStatus = "not-answered";
 
     this.exerciseData = await exercisesService.getRandomExerciseWordsData();
     for (let i = 0; i < this.exerciseData.words.length; i++) {

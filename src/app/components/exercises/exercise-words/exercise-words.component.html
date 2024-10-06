@@ -1,7 +1,6 @@
 <div class="container">
   <ng-container *ngIf="exerciseData; else elseTemplate">
     <div class="exercise-card light-shadow">
-      <!-- <p class="exercise-card__translation">{{exerciseData.words)}}</p> -->
       <div class="exercise-card__answer-cells">
         <div class="exercise-card__answer-cells__cell" *ngFor="let word of exerciseData.words">
           <span class="exercise-card__answer-cells__cell__translation">{{word[2]}}</span>
@@ -20,16 +19,16 @@
     <app-loading class="loading-wrapper"/>
   </ng-template>
 </div>
-<div [class]="answerResult != -2 ? 'answer-modal answer-modal--active' : 'answer-modal'">
+<div [class]="answerStatus != 'not-answered' ? 'answer-modal answer-modal--active' : 'answer-modal'">
   <div class="answer-modal__content container">
     <div class="answer-card">
-      <ng-container *ngIf="answerResult == -1; else elseTemplate2">
+      <ng-container *ngIf="answerStatus == 'checking'; else elseTemplate2">
         <app-loading class="loading-wrapper"/>
       </ng-container>
       <ng-template #elseTemplate2>
-        <div [class]="answerResult == 1 ? 'answer-card__result' : 'answer-card__result answer-card__result--incorrect'">
-          <fa-icon [icon]="answerResult == 1 ? faCircleCheck : faCircleXmark" />
-          <span>{{answerResult == 1 ? "Поздравляю! Вы справились." : "Упс... Попробуйте еще раз"}}</span>
+        <div [class]="answerStatus == 'correct' ? 'answer-card__result' : 'answer-card__result answer-card__result--incorrect'">
+          <fa-icon [icon]="answerStatus == 'correct' ? faCircleCheck : faCircleXmark" />
+          <span>{{answerStatus == 'correct' ? "Поздравляю! Вы справились." : "Упс... Попробуйте еще раз"}}</span>
         </div>
         <div class="answer-card__buttons">
           <app-button (click)="resetExercise()">Еще раз</app-button>

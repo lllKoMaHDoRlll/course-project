@@ -3,7 +3,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlay, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
 import { exercisesService } from '../../../services/database/exercises.service';
-import { ExerciseListeningData } from '../../../interfaces/exercises-data';
+import { AnswerStatus, ExerciseListeningData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
   exerciseListeningData: ExerciseListeningData | undefined;
   audio: HTMLAudioElement | undefined;
   answerInput: HTMLInputElement | undefined;
-  answerResult: -2 | -1 | 0 | 1 = -2;
+  answerStatus: AnswerStatus = "not-answered";
 
   faPlay = faPlay;
   faCircleCheck = faCircleCheck;
@@ -45,14 +45,13 @@ export class ExerciseListeningComponent implements AfterViewInit {
     console.log(this.answerInput!.value);
     const answer = this.answerInput!.value;
     if (!answer) return;
-    this.answerResult = -1;
+    this.answerStatus = "checking";
 
     const res = await exercisesService.checkListeningAnswer(1, answer);
-    console.log(res);
     if (res) {
-      this.answerResult = 1;
+      this.answerStatus = "correct";
     }
-    else this.answerResult = 0;
+    else this.answerStatus = "incorrect";
   }
 
   goBack = () => {
@@ -61,7 +60,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
 
   resetExercise = async () => {
     this.exerciseListeningData = undefined;
-    this.answerResult = -2;
+    this.answerStatus = "not-answered";
     this.exerciseListeningData = await exercisesService.getRandomExerciseListeningData();
 
     setTimeout(() => {

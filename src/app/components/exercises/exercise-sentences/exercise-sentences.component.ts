@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import {ElementPoint, exercisesService, Point} from './../../../services/database/exercises.service';
-import { ExerciseSentencesData } from '../../../interfaces/exercises-data';
+import { AnswerStatus, ExerciseSentencesData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 import { LoadingComponent } from '../../loading/loading.component';
@@ -22,7 +22,7 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   wordsPoints: ElementPoint[] = [];
   lastTouchPosition: number[] | null = null;
   answersSlots: ElementPoint[] = [];
-  answerResult: -2 | -1 | 0 | 1 = -2;
+  answerStatus: AnswerStatus = "not-answered";
 
   faCircleCheck = faCircleCheck;
   faCircleXmark = faCircleXmark;
@@ -99,10 +99,10 @@ export class ExerciseSentencesComponent implements AfterViewInit{
       }
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
-    this.answerResult = -1;
+    this.answerStatus = "checking";
     const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
-    if (result) this.answerResult = 1;
-    else this.answerResult = 0;
+    if (result) this.answerStatus = "correct";
+    else this.answerStatus = "incorrect";
   }
 
   goBack = () => {
@@ -115,7 +115,7 @@ export class ExerciseSentencesComponent implements AfterViewInit{
     this.wordsPoints = [];
     this.lastTouchPosition = null;
     this.answersSlots = [];
-    this.answerResult = -2;
+    this.answerStatus = "not-answered";
 
     this.exerciseData = await exercisesService.getRandomExerciseSentenceData();
     for (let i = 0; i < this.exerciseData.sentence.length; i++) {
