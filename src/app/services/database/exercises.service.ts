@@ -1,5 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
+import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 
 @Injectable({
   providedIn: 'root'
@@ -136,6 +136,37 @@ class ExercisesService {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(isCorrect);
+      }, 1000);
+    });
+  }
+
+  getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData> => {
+    let word = "weather";
+    if (prevWord) {
+      switch(prevWord.word[-1]) {
+        case "o": {
+          word = "orange";
+          break;
+        }
+        case "h": {
+          word = "rush";
+          break;
+        }
+        case "e": {
+          word = "energy";
+          break;
+        }
+      }
+    }
+
+    const data: ExerciseChainData = {
+      type: "input",
+      word: word
+    };
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data);
       }, 1000);
     });
   }
