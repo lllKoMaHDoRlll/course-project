@@ -20,6 +20,12 @@ export interface ExerciseGramarData {
   taskList: [string, string][];
 }
 
+export interface ExerciseChainData {
+  type: "input" | "output" | "placeholder";
+  isPlaceHolder?: true;
+  word: string;
+}
+
 export type AnswerStatus = "correct"   |
                            "incorrect" |
                            "checking"  |
