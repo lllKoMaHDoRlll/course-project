@@ -8,8 +8,8 @@
 }
 
 .rotating {
+  width: max-content;
   margin: auto auto;
-  font-size: 3rem;
   color: $color-light-gray;
 
   -webkit-animation: spin 1s linear infinite;
@@ -17,6 +17,18 @@
   animation: spin 1s linear infinite;
 
   position: relative;
+}
+
+.size-small {
+  font-size: 1rem;
+}
+
+.size-medium {
+  font-size: 2rem;
+}
+
+.size-large {
+  font-size: 3rem;
 }
 
 

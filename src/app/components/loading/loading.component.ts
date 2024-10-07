@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faR, faRotate } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,5 +10,6 @@ import { faR, faRotate } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './loading.component.scss'
 })
 export class LoadingComponent {
+  @Input() size: "large" | "medium" | "small" = "large";
   faRotate = faRotate;
 }
