@@ -1,0 +1,120 @@
+@import "./../../../../styles";
+
+.container--fullscreen {
+  @extend %container;
+
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.exercise-card {
+  border: 1px solid $color-light-gray;
+  border-radius: 1em;
+
+  height: 100%;
+
+  font-size: 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.canvas {
+  position: relative;
+  overflow: hidden;
+
+  .canvas__lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    %canvas__lines__line {
+      fill: none;
+      stroke: $color-primary;
+      stroke-width: 3;
+      transition: .2s all ease-in;
+    }
+
+    .canvas__lines__line--app {
+      @extend %canvas__lines__line;
+    }
+
+    .canvas__lines__line--user {
+      @extend %canvas__lines__line;
+      stroke: $color-agree;
+    }
+
+  }
+
+  .canvas__words {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+
+    %canvas__words__word {
+      position: absolute;
+      top: 1em;
+      padding: .5em 1em;
+      border-radius: 1em;
+      color: $color-white;
+      width: max-content;
+    }
+
+    .canvas__words__word--user {
+      @extend %canvas__words__word;
+      right: 1em;
+
+      background-color: $color-agree;
+    }
+
+    .canvas__words__word--app {
+      @extend %canvas__words__word;
+
+      left: 1em;
+      background-color: $color-primary;
+    }
+  }
+}
+
+.placeholder {
+  display: inline-block;
+  position: relative;
+  margin-right: .4em;
+  width: fit-content;
+  min-width: 40px;
+  min-height: 1.5rem;
+  border: none;
+  font-size: 1.2rem;
+  vertical-align: bottom;
+
+
+  .placeholder__loading {
+    width: unset;
+  }
+
+  .placeholder__pseudo-input {
+    width: 100%;
+    min-width: 40px;
+    position: relative;
+    top: 0;
+    left: 0;
+    word-break: break-all;
+  }
+
+  .placeholder__input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}

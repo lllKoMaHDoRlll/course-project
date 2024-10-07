@@ -1,0 +1,18 @@
+<div class="container--fullscreen">
+  <div #canvas class="exercise-card light-shadow canvas">
+    <svg preserveAspectRatio="xMidYMin slice" #lines  viewbox="0 0 10000 10000" height="100%" width="100%" class="canvas__lines">
+      <path [class]="i % 2 ? 'canvas__lines__line--app' : 'canvas__lines__line--user'" [attr.d]="calculatePathCommands(i)" *ngFor="let wordPosition of wordsPositions; let i = index"></path>
+    </svg>
+    <div #wordsContainer class="canvas__words" (scroll)="onScroll($event)">
+      <span #word *ngFor="let word of wordsHistory; let i = index" [class]="word.type == 'input' ? 'canvas__words__word--app' : 'canvas__words__word--user'" [ngStyle]="{'top': 'calc(1em + '+ 3 * i + 'rem)'}">
+        <span *ngIf="!word.isPlaceHolder">{{word.word}}</span>
+        <div class="placeholder" *ngIf="word.isPlaceHolder">
+          <app-loading size="small" class="placeholder__loading" *ngIf="word.type == 'input'"/>
+          <span class="placeholder__pseudo-input" [innerHTML]="pseudoAnswer"></span>
+          <input class="placeholder__input" type="text" *ngIf="word.type == 'output'" (input)="handleInput($event)" (change)="sendWord($event)">
+        </div>
+      </span>
+    </div>
+  </div>
+  <app-button (click)="handleAnswer()">Проверить</app-button>
+</div>
