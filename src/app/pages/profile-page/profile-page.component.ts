@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserData } from '../../interfaces/user-data';
 import { ProfileCardComponent } from '../../components/profile-card/profile-card.component';
-
+import { initDataRaw, initData, retrieveLaunchParams } from '@telegram-apps/sdk';
 
 const userData: UserData = {
   name: "александр",
@@ -16,6 +16,16 @@ const userData: UserData = {
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss'
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent{
   userData = userData;
+  initDataRaw: any;
+  initData: any;
+
+
+  constructor() {
+    const{ initDataRaw, initData } = retrieveLaunchParams();
+    this.initDataRaw = initDataRaw;
+    this.initData = initData;
+    console.log(initDataRaw, initData);
+  }
 }
