@@ -29,7 +29,7 @@ export class ExerciseGramarComponent implements AfterViewInit{
 
     setTimeout(() => {
       this.userInputs = Array.from(document.querySelectorAll(".exercise-card__task-list__item > input"));
-    }, 500);
+    }, 1);
   }
 
   handleInput = (ev: Event, inputId: number) => {
@@ -61,6 +61,6 @@ export class ExerciseGramarComponent implements AfterViewInit{
 
     setTimeout(() => {
       this.userInputs = Array.from(document.querySelectorAll(".exercise-card__task-list__item > input"));
-    }, 500);
+    }, 1);
   }
 }

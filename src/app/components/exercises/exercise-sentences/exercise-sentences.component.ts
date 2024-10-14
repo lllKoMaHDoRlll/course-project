@@ -34,7 +34,7 @@ export class ExerciseSentencesComponent implements AfterViewInit{
     setTimeout(() => {
       this.wordsContainerRef = (this.elementRef.nativeElement as HTMLDivElement).querySelector("div.exercise-card__sentence-words");
       this.calculateAbsSlotsPositions();
-    }, 500);
+    }, 1);
   }
 
   moveWord = (ev: TouchEvent, wordId: number) => {
@@ -121,6 +121,6 @@ export class ExerciseSentencesComponent implements AfterViewInit{
     setTimeout(() => {
       this.wordsContainerRef = (this.elementRef.nativeElement as HTMLDivElement).querySelector("div.exercise-card__sentence-words");
       this.calculateAbsSlotsPositions();
-    }, 500);
+    }, 1);
   }
 }
