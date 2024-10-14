@@ -1,5 +1,6 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
+import axios from "axios";
 
 @Injectable({
   providedIn: 'root'
@@ -8,71 +9,87 @@ class ExercisesService {
 
   constructor() { }
 
-  getRandomExerciseSentenceData = (): Promise<ExerciseSentencesData> => {
-    let words = "What a wonderful day today!".split(" ");
-    const translation = "Какой замечательный день сегодня!";
-    const id = 1;
-    let sentence: [number, string][] = [];
-    let index = 0;
-    while (words.length > 0) {
-      let randomIndex = Math.floor(Math.random() * (words.length));
-      sentence.push([index, words.at(randomIndex)!]);
-      words.splice(randomIndex, 1);
-      index++;
-    }
-    const result: ExerciseSentencesData = {
-      id: id,
-      sentence: sentence,
-      translation: translation
-    };
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(result);
-      }, 1000);
-    });
+  getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
+    // let words = "What a wonderful day today!".split(" ");
+    // const translation = "Какой замечательный день сегодня!";
+    // const id = 1;
+    // let sentence: [number, string][] = [];
+    // let index = 0;
+    // while (words.length > 0) {
+    //   let randomIndex = Math.floor(Math.random() * (words.length));
+    //   sentence.push([index, words.at(randomIndex)!]);
+    //   words.splice(randomIndex, 1);
+    //   index++;
+    // }
+    // const result: ExerciseSentencesData = {
+    //   id: id,
+    //   sentence: sentence,
+    //   translation: translation
+    // };
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(result);
+    //   }, 1000);
+    // });
+    const result = await axios.get('http://localhost:8000/api/exercises/sentence');
+    return result.data;
   }
 
-  checkSentenceAnswer(sentenceId: number, answer: string): Promise<boolean> {
-    let res = false;
-    if (answer == "What a wonderful day today!") res = true;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(res);
-      }, 1000);
-    });
+  async checkSentenceAnswer(sentenceId: number, answer: string): Promise<boolean> {
+    // let res = false;
+    // if (answer == "What a wonderful day today!") res = true;
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(res);
+    //   }, 1000);
+    // });
+    const result = await axios.post("http://localhost:8000/api/exercises/sentence", {
+        "id": sentenceId,
+        "answer": answer
+      }
+    );
+    return result.data.result;
   }
 
-  getRandomExerciseWordsData = (): Promise<ExerciseWordsData> => {
-    const id = 1;
-    const words: [number, string, string][] = [
-      [0, "weather", "погода"],
-      [1, "resolution", "разрешение"],
-      [2, "addiction", "привыкание"],
-      [3, "exercise", "упражнение"],
-      [4, "page", "страница"]
-    ];
+  getRandomExerciseWordsData = async (): Promise<ExerciseWordsData> => {
+    const response = await axios.get("http://localhost:8000/api/exercises/words")
     const exerciseWordsData: ExerciseWordsData = {
-      id: id,
-      words: words
+      id: response.data.id,
+      words: response.data.words,
+      translations: response.data.translations
     };
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(exerciseWordsData)
-      }, 1000);
-    })
+    return exerciseWordsData;
   }
 
-  getRandomExerciseListeningData = (): Promise<ExerciseListeningData> => {
-    const data: ExerciseListeningData = {
-      id: 1,
-      audioFilePath: "./assets/audio/audio_mok.mp3"
-    };
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
+  checkWordsAnswer = async (exerciseId: number, words: string[]): Promise<boolean> => {
+    const result = await axios.post("http://localhost:8000/api/exercises/words", {
+      id: exerciseId,
+      words: words
     });
+    return result.data.result;
+  }
+
+  getRandomExerciseListeningData = async (): Promise<ExerciseListeningData> => {
+    // const data: ExerciseListeningData = {
+    //   id: 1,
+    //   audioFilePath: "./assets/audio/audio_mok.mp3"
+    // };
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(data);
+    //   }, 1000);
+    // });
+    const exercise_data = await axios.get("http://localhost:8000/api/exercises/listening", {
+      responseType: "blob"
+    });
+    const href = URL.createObjectURL(exercise_data.data);
+    const regexp = new RegExp(/output_(?<id>[\d]+).wav/gm);
+    const exerciseId = Number.parseInt(regexp.exec(exercise_data.headers["content-disposition"])?.groups!["id"]!);
+    return {
+      id: exerciseId,
+      audioFilePath: href,
+    };
   }
 
   checkListeningAnswer = (listeningId: number, answer: string): Promise<boolean> => {
@@ -83,6 +100,9 @@ class ExercisesService {
         resolve(res);
       }, 1000);
     });
+
+
+
   }
 
   getRandomExerciseGramarData = (): Promise<ExerciseGramarData> => {
@@ -140,35 +160,41 @@ class ExercisesService {
     });
   }
 
-  getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData> => {
-    let word = "weather";
+  getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData | null> => {
+    // let word = "weather";
+    // if (prevWord) {
+    //   switch(prevWord.word[-1]) {
+    //     case "o": {
+    //       word = "orange";
+    //       break;
+    //     }
+    //     case "h": {
+    //       word = "rush";
+    //       break;
+    //     }
+    //     case "e": {
+    //       word = "energy";
+    //       break;
+    //     }
+    //   }
+    // }
+    let word;
     if (prevWord) {
-      switch(prevWord.word[-1]) {
-        case "o": {
-          word = "orange";
-          break;
-        }
-        case "h": {
-          word = "rush";
-          break;
-        }
-        case "e": {
-          word = "energy";
-          break;
-        }
-      }
+      word = (await axios.get("http://localhost:8000/api/exercises/chain", {params: {
+        word: prevWord.word
+      }})).data;
+      if (!word) return null;
+    }
+    else {
+      word = (await axios.get("http://localhost:8000/api/exercises/chain")).data;
     }
 
     const data: ExerciseChainData = {
       type: "input",
-      word: word
+      word: word.result
     };
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
-    });
+    console.log(data);
+    return data;
   }
 }
 

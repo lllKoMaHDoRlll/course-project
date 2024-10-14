@@ -97,7 +97,7 @@ export class ExerciseWordsComponent {
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
     this.answerStatus = "checking"
-    const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
+    const result = await exercisesService.checkWordsAnswer(this.exerciseData!.id, answer);
     if (result) this.answerStatus = "correct";
     else this.answerStatus = "incorrect";
   }

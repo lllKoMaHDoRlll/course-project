@@ -6,7 +6,8 @@ export interface ExerciseSentencesData {
 
 export interface ExerciseWordsData {
   id: number;
-  words: [number, string, string][];
+  words: string[];
+  translations: string[]
 }
 
 export interface ExerciseListeningData {
