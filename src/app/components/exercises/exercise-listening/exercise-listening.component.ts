@@ -33,11 +33,10 @@ export class ExerciseListeningComponent implements AfterViewInit {
     setTimeout(() => {
       this.audio = document.querySelector(".exercise-card__audio > audio") as HTMLAudioElement;
       this.answerInput = document.querySelector(".exercise-card__answer > input") as HTMLInputElement;
-    }, 500);
+    }, 1);
   }
 
   play = (ev: MouseEvent) => {
-    console.log(1);
     this.audio!.play();
   }
 
@@ -47,7 +46,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
     if (!answer) return;
     this.answerStatus = "checking";
 
-    const res = await exercisesService.checkListeningAnswer(1, answer);
+    const res = await exercisesService.checkListeningAnswer(this.exerciseListeningData?.id!, answer);
     if (res) {
       this.answerStatus = "correct";
     }
@@ -66,6 +65,6 @@ export class ExerciseListeningComponent implements AfterViewInit {
     setTimeout(() => {
       this.audio = document.querySelector(".exercise-card__audio > audio") as HTMLAudioElement;
       this.answerInput = document.querySelector(".exercise-card__answer > input") as HTMLInputElement;
-    }, 500);
+    }, 1);
   }
 }
