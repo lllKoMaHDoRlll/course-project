@@ -7,7 +7,7 @@
         </li>
       </div>
       <div class="exercise-card__sentence-words">
-        <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData?.sentence" (touchmove)="moveWord($event, word[0])" (touchend)="stopMoveWord($event, word[0])">{{word[1]}}</span>
+        <span class="exercise-card__sentence-words__word light-shadow" *ngFor="let word of exerciseData?.sentence; let i = index" (touchmove)="moveWord($event, i)" (touchend)="stopMoveWord($event, i)">{{word}}</span>
       </div>
       <app-button (click)="handleAnswer()">Проверить</app-button>
     </div>
