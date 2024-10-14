@@ -22,6 +22,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@telegram-apps/sdk": "^2.4.0",
     "@tonconnect/ui": "^2.0.9",
     "axios": "^1.7.7",
     "rxjs": "~7.8.0",
