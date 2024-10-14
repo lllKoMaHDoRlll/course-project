@@ -51,7 +51,8 @@ export class ExerciseChainComponent implements OnInit {
 
   addWord = async (lastWord: ExerciseChainData) => {
     await this.addWordNode(lastWord);
-    const newWord = await exercisesService.getWordForChain(lastWord);
+    const newWord = await exercisesService.getWordForChain(lastWord.isPlaceHolder ? undefined : lastWord);
+    if (!newWord) return;
     await this.addWordNode(newWord);
   }
 
