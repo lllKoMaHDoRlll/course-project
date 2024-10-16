@@ -2,7 +2,7 @@ import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import axios from "axios";
 
-const DB_HOST = "https://every-numbers-see.loca.lt";
+const DB_HOST = "https://tonolingo.ru";
 
 @Injectable({
   providedIn: 'root'
