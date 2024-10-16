@@ -21,7 +21,14 @@ $color-deny: #F46036;
 }
 
 html, body {
-  height: 100%;
+  height: 100dvh;
+  background-color: $color-white;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .container, %container {
