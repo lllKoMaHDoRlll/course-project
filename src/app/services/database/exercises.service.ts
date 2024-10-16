@@ -2,12 +2,23 @@ import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import axios from "axios";
 
+const DB_HOST = "https://every-numbers-see.loca.lt";
+
 @Injectable({
   providedIn: 'root'
 })
 class ExercisesService {
 
   constructor() { }
+
+  getUserProfilePicture = async (userId: number): Promise<string> => {
+    const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
+      responseType: "blob"
+    });
+    console.log(result);
+    const href = URL.createObjectURL(result.data);
+    return href;
+  }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
     // let words = "What a wonderful day today!".split(" ");
@@ -31,7 +42,11 @@ class ExercisesService {
     //     resolve(result);
     //   }, 1000);
     // });
-    const result = await axios.get('http://localhost:8000/api/exercises/sentence');
+    const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
+      headers: {
+        "bypass-tunnel-reminder": "*"
+      }
+    });
     return result.data;
   }
 
@@ -43,16 +58,17 @@ class ExercisesService {
     //     resolve(res);
     //   }, 1000);
     // });
-    const result = await axios.post("http://localhost:8000/api/exercises/sentence", {
+    const result = await axios.post(`${DB_HOST}/api/exercises/sentence`, {
         "id": sentenceId,
         "answer": answer
       }
     );
+    console.log(result);
     return result.data.result;
   }
 
   getRandomExerciseWordsData = async (): Promise<ExerciseWordsData> => {
-    const response = await axios.get("http://localhost:8000/api/exercises/words")
+    const response = await axios.get(`${DB_HOST}/api/exercises/words`)
     const exerciseWordsData: ExerciseWordsData = {
       id: response.data.id,
       words: response.data.words,
@@ -63,7 +79,7 @@ class ExercisesService {
   }
 
   checkWordsAnswer = async (exerciseId: number, words: string[]): Promise<boolean> => {
-    const result = await axios.post("http://localhost:8000/api/exercises/words", {
+    const result = await axios.post(`${DB_HOST}/api/exercises/words`, {
       id: exerciseId,
       words: words
     });
@@ -80,7 +96,7 @@ class ExercisesService {
     //     resolve(data);
     //   }, 1000);
     // });
-    const exercise_data = await axios.get("http://localhost:8000/api/exercises/listening", {
+    const exercise_data = await axios.get(`${DB_HOST}/api/exercises/listening`, {
       responseType: "blob"
     });
     const href = URL.createObjectURL(exercise_data.data);
@@ -180,13 +196,13 @@ class ExercisesService {
     // }
     let word;
     if (prevWord) {
-      word = (await axios.get("http://localhost:8000/api/exercises/chain", {params: {
+      word = (await axios.get(`${DB_HOST}/api/exercises/chain`, {params: {
         word: prevWord.word
       }})).data;
       if (!word) return null;
     }
     else {
-      word = (await axios.get("http://localhost:8000/api/exercises/chain")).data;
+      word = (await axios.get(`${DB_HOST}/api/exercises/chain`)).data;
     }
 
     const data: ExerciseChainData = {
