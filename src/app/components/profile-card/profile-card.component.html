@@ -1,13 +1,13 @@
 <div class="profile-card light-shadow">
   <div class="profile-card__avatar">
-    <img [src]="userData!.profileImagePath ? userData!.profileImagePath : './assets/images/blank_profile.jpg'" alt="Avatar image">
+    <img [src]="profilePictureHref ? profilePictureHref : './assets/images/blank_profile.jpg'" alt="Avatar image">
   </div>
   <div class="profile-card__name">
-    <span>{{userData!.name}}</span>
+    <span>{{username}}</span>
   </div>
   <div class="profile-card__credentials">
-    <p class="profile-card__credentials__email">Почта: </p><span>{{userData!.email}}</span>
-    <p class="profile-card__credentials__phone">Телефон: </p><span>{{userData!.phoneNumber}}</span>
+    <!-- <p class="profile-card__credentials__email">Почта: </p><span>{{userData!.email}}</span>
+    <p class="profile-card__credentials__phone">Телефон: </p><span>{{userData!.phoneNumber}}</span> -->
   </div>
   <div class="profile-card__wallet">
     <app-ton-connect-button/>

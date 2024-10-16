@@ -28,6 +28,7 @@ export class ExerciseSentencesComponent implements AfterViewInit{
 
   async ngAfterViewInit() {
     this.exerciseData = await exercisesService.getRandomExerciseSentenceData();
+    console.log(this.exerciseData);
     for (let i = 0; i < this.exerciseData.sentence.length; i++) {
       this.wordsPoints.push(new ElementPoint());
     }
