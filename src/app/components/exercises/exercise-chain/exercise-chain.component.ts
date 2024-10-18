@@ -1,10 +1,11 @@
 
-import { Component, ElementRef, OnInit, QueryList,ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, QueryList,ViewChild, ViewChildren } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { ExerciseChainData } from '../../../interfaces/exercises-data';
 import { exercisesService } from '../../../services/database/exercises.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
+import { TelegramService } from '../../../telegram.service';
 
 @Component({
   selector: 'app-exercise-chain',
@@ -23,8 +24,13 @@ export class ExerciseChainComponent implements OnInit {
     x: number,
     y: number
   }[] = [{x: 0, y: 0}];
+  telegram = inject(TelegramService);
 
   pseudoAnswer: string = "";
+
+  constructor() {
+    this.telegram.showBackButton();
+  }
 
   async ngOnInit() {
     await this.addWord({type: "input", isPlaceHolder: true, word: ""});

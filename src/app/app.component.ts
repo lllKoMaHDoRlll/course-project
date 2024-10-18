@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { expandViewport, disableVerticalSwipes } from "@telegram-apps/sdk";
+import { Location } from '@angular/common';
+import { TelegramService } from './telegram.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,20 @@ import { expandViewport, disableVerticalSwipes } from "@telegram-apps/sdk";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  constructor() {
-    expandViewport();
-    disableVerticalSwipes();
-  }
+export class AppComponent implements OnInit{
+  telegram = inject(TelegramService);
 
-  preventMovement(ev: TouchEvent) {
-    ev.preventDefault();
+  index: number = 0;
+  constructor(private _location: Location) { }
+
+  async ngOnInit() {
+    await this.telegram.init();
+    this.telegram.setHeaderColor("#089beb");
+    this.telegram.expand();
+    this.telegram.hideBackButton();
+
+    this.telegram.onBackButtonClick(() => {
+      this._location.back();
+    });
   }
 }

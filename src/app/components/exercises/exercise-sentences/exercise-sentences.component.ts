@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject } from '@angular/core';
 import {ElementPoint, exercisesService, Point} from './../../../services/database/exercises.service';
 import { AnswerStatus, ExerciseSentencesData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from "../../loading-for/loading-for.component";
 import { ModalComponent } from '../../modal/modal.component';
+import { TelegramService } from '../../../telegram.service';
 
 
 @Component({
@@ -24,7 +25,11 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
 
-  constructor(private router: Router, private elementRef: ElementRef) { }
+  telegram = inject(TelegramService);
+
+  constructor(private router: Router, private elementRef: ElementRef) {
+    this.telegram.showBackButton();
+  }
 
   async ngAfterViewInit() {
     this.exerciseData = await exercisesService.getRandomExerciseSentenceData();
@@ -101,10 +106,6 @@ export class ExerciseSentencesComponent implements AfterViewInit{
     const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
     if (result) this.answerStatus = "correct";
     else this.answerStatus = "incorrect";
-  }
-
-  goBack = () => {
-    this.router.navigate(['exercises']);
   }
 
   resetExercise = async () => {

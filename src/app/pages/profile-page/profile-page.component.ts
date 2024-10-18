@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserData } from '../../interfaces/user-data';
+import { Component, inject } from '@angular/core';
 import { ProfileCardComponent } from '../../components/profile-card/profile-card.component';
-import { initDataRaw, initData, retrieveLaunchParams } from '@telegram-apps/sdk';
 import { LoadingForComponent } from '../../components/loading-for/loading-for.component';
+import { TelegramService } from '../../telegram.service';
+
 
 @Component({
   selector: 'app-profile-page',
@@ -12,13 +12,13 @@ import { LoadingForComponent } from '../../components/loading-for/loading-for.co
   styleUrl: './profile-page.component.scss'
 })
 export class ProfilePageComponent{
+  telegram = inject(TelegramService);
   userId: number;
   username: string;
 
   constructor() {
-    const{ initDataRaw, initData } = retrieveLaunchParams();
-    this.userId = initData?.user?.id!;
-    this.username = initData?.user?.username!;
-    console.log(initDataRaw, initData);
+    this.telegram.showBackButton();
+    this.userId = this.telegram.launchParams?.initData?.user?.id!;
+    this.username = this.telegram.launchParams?.initData?.user?.username!;
   }
 }

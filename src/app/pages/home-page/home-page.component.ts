@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ButtonComponent, ColorThemes } from '../../components/button/button.component';
+import { Component, inject } from '@angular/core';
+import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
+import { TelegramService } from '../../telegram.service';
 
 @Component({
   selector: 'app-home-page',
@@ -11,6 +12,11 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent {
   router = new Router();
+  telegram = inject(TelegramService);
+
+  constructor() {
+    this.telegram.hideBackButton();
+  }
 
   goTo = (path: string) => {
     this.router.navigate([path]);

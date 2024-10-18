@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
 import { ExerciseCardData, exercisesMap } from '../../interfaces/exercise-card-data';
 import {faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TelegramService } from '../../telegram.service';
 
 const exerciseCardDataList: ExerciseCardData[] = [
   {
@@ -40,11 +41,14 @@ const exerciseCardDataList: ExerciseCardData[] = [
   templateUrl: './exercises-page.component.html',
   styleUrl: './exercises-page.component.scss'
 })
-export class ExercisesPageComponent {
+export class ExercisesPageComponent{
   exerciseCardDataList = exerciseCardDataList;
   exercisesMap = exercisesMap;
+  telegram = inject(TelegramService);
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {
+    this.telegram.showBackButton();
+  }
 
   goTo = (path: string) => {
     this.router.navigate([path], {relativeTo: this.route});

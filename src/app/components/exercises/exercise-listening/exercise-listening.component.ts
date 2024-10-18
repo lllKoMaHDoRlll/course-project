@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
 import { ModalComponent } from '../../modal/modal.component';
+import { TelegramService } from '../../../telegram.service';
 
 @Component({
   selector: 'app-exercise-listening',
@@ -25,7 +26,11 @@ export class ExerciseListeningComponent implements AfterViewInit {
 
   faPlay = faPlay;
 
-  constructor(private router: Router) {}
+  telegram = inject(TelegramService);
+
+  constructor(private router: Router) {
+    this.telegram.showBackButton();
+  }
 
   async ngAfterViewInit() {
     this.exerciseListeningData = await exercisesService.getRandomExerciseListeningData();
@@ -51,10 +56,6 @@ export class ExerciseListeningComponent implements AfterViewInit {
       this.answerStatus = "correct";
     }
     else this.answerStatus = "incorrect";
-  }
-
-  goBack = () => {
-    this.router.navigate(['exercises']);
   }
 
   resetExercise = async () => {

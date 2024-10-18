@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
 import { ButtonComponent } from '../../button/button.component';
 import { ModalComponent } from '../../modal/modal.component';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { AnswerStatus, ExerciseGramarData } from '../../../interfaces/exercises-data';
 import { exercisesService } from '../../../services/database/exercises.service';
+import { TelegramService } from '../../../telegram.service';
 
 @Component({
   selector: 'app-exercise-gramar',
@@ -20,6 +21,12 @@ export class ExerciseGramarComponent implements AfterViewInit{
 
   userInputs: HTMLInputElement[] | undefined;
   userPseudoAnswers: string[] = [];
+
+  telegram = inject(TelegramService);
+
+  constructor() {
+    this.telegram.showBackButton();
+  }
 
   async ngAfterViewInit() {
     this.exerciseData = await exercisesService.getRandomExerciseGramarData();
