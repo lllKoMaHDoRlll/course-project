@@ -21,27 +21,6 @@ class ExercisesService {
   }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
-    // let words = "What a wonderful day today!".split(" ");
-    // const translation = "Какой замечательный день сегодня!";
-    // const id = 1;
-    // let sentence: [number, string][] = [];
-    // let index = 0;
-    // while (words.length > 0) {
-    //   let randomIndex = Math.floor(Math.random() * (words.length));
-    //   sentence.push([index, words.at(randomIndex)!]);
-    //   words.splice(randomIndex, 1);
-    //   index++;
-    // }
-    // const result: ExerciseSentencesData = {
-    //   id: id,
-    //   sentence: sentence,
-    //   translation: translation
-    // };
-    // return new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve(result);
-    //   }, 1000);
-    // });
     const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
       headers: {
         "bypass-tunnel-reminder": "*"
@@ -51,13 +30,6 @@ class ExercisesService {
   }
 
   async checkSentenceAnswer(sentenceId: number, answer: string): Promise<boolean> {
-    // let res = false;
-    // if (answer == "What a wonderful day today!") res = true;
-    // return new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve(res);
-    //   }, 1000);
-    // });
     const result = await axios.post(`${DB_HOST}/api/exercises/sentence`, {
         "id": sentenceId,
         "answer": answer
@@ -87,15 +59,6 @@ class ExercisesService {
   }
 
   getRandomExerciseListeningData = async (): Promise<ExerciseListeningData> => {
-    // const data: ExerciseListeningData = {
-    //   id: 1,
-    //   audioFilePath: "./assets/audio/audio_mok.mp3"
-    // };
-    // return new Promise((resolve) => {
-    //   setTimeout(() => {
-    //     resolve(data);
-    //   }, 1000);
-    // });
     const exercise_data = await axios.get(`${DB_HOST}/api/exercises/listening`, {
       responseType: "blob"
     });
@@ -177,23 +140,6 @@ class ExercisesService {
   }
 
   getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData | null> => {
-    // let word = "weather";
-    // if (prevWord) {
-    //   switch(prevWord.word[-1]) {
-    //     case "o": {
-    //       word = "orange";
-    //       break;
-    //     }
-    //     case "h": {
-    //       word = "rush";
-    //       break;
-    //     }
-    //     case "e": {
-    //       word = "energy";
-    //       break;
-    //     }
-    //   }
-    // }
     let word;
     if (prevWord) {
       word = (await axios.get(`${DB_HOST}/api/exercises/chain`, {params: {
