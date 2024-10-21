@@ -11,8 +11,12 @@ import tonConnectService from '../../services/ton-connect.service';
 })
 export class TonConnectButtonComponent implements AfterViewInit, OnDestroy{
   ngAfterViewInit(): void {
-    console.log(tonConnectService.tonConnectUI);
     tonConnectService.tonConnectUI.uiOptions = {buttonRootId: "ton-connect"};
+    tonConnectService.connector.onStatusChange((wallet) => {
+      if (wallet) {
+        console.log(wallet.account.address);
+      }
+    })
   }
 
   ngOnDestroy(): void {
