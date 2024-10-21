@@ -1,0 +1,63 @@
+@import "./../../../styles";
+
+.achievement {
+  font-size: 1.6rem;
+  padding: .5em 1em;
+  border: 1px solid $color-light-gray;
+  border-radius: .75em;
+
+  .achievement__header {
+    display: flex;
+    align-items: baseline;
+    gap: .5em;
+
+    fa-icon {
+      font-size: 1.8rem;
+      color: $color-gray;
+    }
+  }
+
+  .achievement__progress {
+    display: flex;
+    justify-content: space-between;
+    gap: .5em;
+    align-items: center;
+
+    .achievement__progress__bar {
+      width: 100%;
+    }
+
+    .achievement__progress__stats {
+      font-size: 1.2rem;
+      color: $color-gray;
+    }
+  }
+}
+
+.bar {
+  position: relative;
+  height: 10px;
+
+  .bar__total {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background-color: $color-light-gray;
+    border: none;
+    border-radius: 1em;
+  }
+
+  .bar__completed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 0%;
+    background-color: $color-primary;
+    border: none;
+    border-radius: 1em;
+  }
+
+}

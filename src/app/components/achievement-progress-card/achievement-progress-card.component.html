@@ -1,0 +1,15 @@
+<div class="achievement">
+  <div class="achievement__header">
+    <fa-icon [icon]="achievementProgress.icon"/>
+    <span>{{achievementProgress.name}}</span>
+  </div>
+  <div class="achievement__progress">
+    <div class="achievement__progress__bar bar">
+      <hr class="bar__total">
+      <hr class="bar__completed" [style]="'width:' + (achievementProgress.completed / achievementProgress.total) * 100 + '%'">
+    </div>
+    <div class="achievement__progress__stats">
+      <span>{{achievementProgress.completed}}/{{achievementProgress.total}}</span>
+    </div>
+  </div>
+</div>
