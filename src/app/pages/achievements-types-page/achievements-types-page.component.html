@@ -1,0 +1,3 @@
+<div class="achievements-progress-list">
+  <app-achievement-progress-card *ngFor="let achievementProgress of achievementsProgressesList;" [achievementProgress]="achievementProgress" (click)="navigateTo(achievementProgress.id)"/>
+</div>
