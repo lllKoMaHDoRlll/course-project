@@ -1,3 +1,9 @@
-<div class="achievements-progress-list">
-  <app-achievement-progress-card *ngFor="let achievementProgress of achievementsProgressesList" [achievementProgress]="achievementProgress" />
+<div *ngFor="let achievement of achievements" style="border: 1px solid black; margin-bottom: 1em;">
+  <p>1 {{achievement.id}}</p>
+  <p>2 {{achievement.name}}</p>
+  <p>3 {{achievement.description}}</p>
+  <p>4 {{achievement.type_id}}</p>
+  <p>5 {{achievement.is_completed}}</p>
+  <p>6 {{achievement.is_sbt_claimed}}</p>
+
 </div>

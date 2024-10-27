@@ -1,68 +1,26 @@
-import { AchievementProgressCardComponent } from './../../components/achievement-progress-card/achievement-progress-card.component';
-import { Component, inject } from '@angular/core';
-import { AchievementProgress } from '../../interfaces/achievements';
-import { faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck, faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { Achievement } from '../../interfaces/achievements';
+import { DatabaseService } from '../../services/database/database.service';
 import { TelegramService } from '../../services/telegram.service';
-
-const achievementsProgressesList: AchievementProgress[] = [
-  {
-    id: 0,
-    name: "Общее",
-    icon: faStar,
-    completed: 5,
-    total: 10
-  },
-  {
-    id: 1,
-    name: "Предложения",
-    icon: faParagraph,
-    completed: 10,
-    total: 10
-  },
-  {
-    id: 2,
-    name: "Слова",
-    icon: faLanguage,
-    completed: 0,
-    total: 10
-  },
-  {
-    id: 3,
-    name: "Аудирование",
-    icon: faHeadphones,
-    completed: 5,
-    total: 21
-  },
-  {
-    id: 4,
-    name: "Грамматика",
-    icon: faSpellCheck,
-    completed: 9,
-    total: 10
-  },
-  {
-    id: 5,
-    name: "Цепочки",
-    icon: faLink,
-    completed: 7,
-    total: 9
-  }
-];
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-achievements-page',
   standalone: true,
-  imports: [ CommonModule, FontAwesomeModule, AchievementProgressCardComponent],
+  imports: [CommonModule],
   templateUrl: './achievements-page.component.html',
   styleUrl: './achievements-page.component.scss'
 })
-export class AchievementsPageComponent {
+export class AchievementsPageComponent implements OnInit{
+  constructor(private route: ActivatedRoute) {}
+  achievementTypeId = Number(this.route.snapshot.paramMap.get("type_id"));
+  database = inject(DatabaseService);
   telegram = inject(TelegramService);
-  achievementsProgressesList = achievementsProgressesList;
-
-  constructor() {
-    this.telegram.showBackButton();
+  achievements: Achievement[] = [];
+  async ngOnInit() {
+    this.achievements = await this.database.getAchievements(this.telegram.getUserTGId()!, this.achievementTypeId!);
+    console.log(this.achievements);
   }
 }
