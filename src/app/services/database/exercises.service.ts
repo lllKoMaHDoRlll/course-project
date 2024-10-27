@@ -11,7 +11,7 @@ class ExercisesService {
 
   constructor() { }
 
-  getUserProfilePicture = async (userId: number): Promise<string> => {
+  getUserProfilePicture = async (userId: number): Promise<string> => { // перенести в другой файл
     const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
       responseType: "blob"
     });
@@ -29,10 +29,14 @@ class ExercisesService {
     return result.data;
   }
 
-  async checkSentenceAnswer(sentenceId: number, answer: string): Promise<boolean> {
+  async checkSentenceAnswer(sentenceId: number, answer: string, userId: number): Promise<boolean> {
     const result = await axios.post(`${DB_HOST}/api/exercises/sentence`, {
         "id": sentenceId,
         "answer": answer
+      }, {
+        params: {
+          user_id: userId
+        }
       }
     );
     console.log(result);
@@ -50,10 +54,14 @@ class ExercisesService {
     return exerciseWordsData;
   }
 
-  checkWordsAnswer = async (exerciseId: number, words: string[]): Promise<boolean> => {
+  checkWordsAnswer = async (exerciseId: number, words: string[], userId: number): Promise<boolean> => {
     const result = await axios.post(`${DB_HOST}/api/exercises/words`, {
       id: exerciseId,
       words: words
+    }, {
+      params: {
+        user_id: userId
+      }
     });
     return result.data.result;
   }
@@ -71,72 +79,39 @@ class ExercisesService {
     };
   }
 
-  checkListeningAnswer = (listeningId: number, answer: string): Promise<boolean> => {
-    let res = false;
-    if (answer == "sound") res = true;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(res);
-      }, 1000);
-    });
-
-
-
-  }
-
-  getRandomExerciseGramarData = (): Promise<ExerciseGramarData> => {
-    const data: ExerciseGramarData = {
-      id: 1,
-      taskDescription: "Заполните пропуски словами в правильной форме",
-      taskList: [
-        ["It was warm, so I", "off my coat. (take)"],
-        ["The film wasn't very good. I", "it very much. (enjoy)"],
-        ["I knew Kate was very busy, so I", "her. (disturb)"],
-        ["I was very tired, so I", "to bed early. (go)"],
-        ["The bed was very uncomfortable. I", "very well. (sleep)"],
-        ["Fabiola wasn't hungry, so she", "anything. (eat)"],
-        ["We went to Laila's house but she", "at home. (be)"],
-        ["It was a funny situation but nobody", ". (laugh)"],
-        ["The window was open and a bird ", "into the room. (fly)"],
-        ["The hotel wasn't very expensive. It", "very much. (cost)"],
-        ["I was in a hurry, so I", "time to phone you. (have)"],
-        ["It was very hard work carrying the bags. They", "very heavy. (be)"],
-      ]
-    };
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(data);
-      }, 1000);
-    });
-  }
-
-  checkGramarAnswer = (taskId: number, userAnswer: string[]): Promise<boolean> => {
-    let isCorrect = true;
-    const correctAnswer = [
-      "took",
-      "didn't enjoy",
-      "didn't disturb",
-      "went",
-      "didn't sleep",
-      "didn't eat",
-      "wasn't",
-      "laughted",
-      "flew",
-      "didn't cost",
-      "didn't have",
-      "were"
-    ];
-    for (let i = 0; i < userAnswer.length; i++) {
-      if (correctAnswer[i] != userAnswer[i]) {
-        isCorrect = false;
-        break;
+  checkListeningAnswer = async (listeningId: number, answer: string, userId: number): Promise<boolean> => {
+    const result = await axios.post(`${DB_HOST}/api/exercises/listening`, {
+      id: listeningId,
+      words: answer.split(" ")
+    }, {
+      params: {
+        user_id: userId
       }
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(isCorrect);
-      }, 1000);
     });
+    return result.data.result;
+  }
+
+  getRandomExerciseGramarData = async (): Promise<ExerciseGramarData> => {
+    const response = await axios.get(`${DB_HOST}/api/exercises/gramar`)
+    const exerciseGramarData: ExerciseGramarData = {
+      id: response.data.id,
+      taskDescription: response.data.desctiption,
+      taskList: response.data.tasks
+    };
+
+    return exerciseGramarData;
+  }
+
+  checkGramarAnswer = async (taskId: number, userAnswer: string[], userId: number): Promise<boolean> => {
+    const result = await axios.post(`${DB_HOST}/api/exercises/gramar`, {
+      id: taskId,
+      answers: userAnswer
+    }, {
+      params: {
+        user_id: userId
+      }
+    });
+    return result.data.result;
   }
 
   getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData | null> => {

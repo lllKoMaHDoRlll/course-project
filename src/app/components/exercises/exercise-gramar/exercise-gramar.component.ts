@@ -51,7 +51,7 @@ export class ExerciseGramarComponent implements AfterViewInit{
     }
 
     this.answerStatus = "checking";
-    const res = await exercisesService.checkGramarAnswer(this.exerciseData!.id, this.userPseudoAnswers);
+    const res = await exercisesService.checkGramarAnswer(this.exerciseData!.id, this.userPseudoAnswers, this.telegram.getUserTGId()!);
     this.answerStatus = res ? "correct" : "incorrect";
   }
 

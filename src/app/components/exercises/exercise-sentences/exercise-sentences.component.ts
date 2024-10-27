@@ -103,7 +103,7 @@ export class ExerciseSentencesComponent implements AfterViewInit{
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
     this.answerStatus = "checking";
-    const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "));
+    const result = await exercisesService.checkSentenceAnswer(this.exerciseData!.id, answer.join(" "), this.telegram.launchParams?.initData?.user?.id!);
     if (result) this.answerStatus = "correct";
     else this.answerStatus = "incorrect";
   }

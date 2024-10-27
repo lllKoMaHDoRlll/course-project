@@ -51,7 +51,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
     if (!answer) return;
     this.answerStatus = "checking";
 
-    const res = await exercisesService.checkListeningAnswer(this.exerciseListeningData?.id!, answer);
+    const res = await exercisesService.checkListeningAnswer(this.exerciseListeningData?.id!, answer, this.telegram.getUserTGId()!);
     if (res) {
       this.answerStatus = "correct";
     }

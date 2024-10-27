@@ -105,7 +105,7 @@ export class ExerciseWordsComponent {
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
     this.answerStatus = "checking"
-    const result = await exercisesService.checkWordsAnswer(this.exerciseData!.id, answer);
+    const result = await exercisesService.checkWordsAnswer(this.exerciseData!.id, answer, this.telegram.getUserTGId()!);
     if (result) this.answerStatus = "correct";
     else this.answerStatus = "incorrect";
   }
