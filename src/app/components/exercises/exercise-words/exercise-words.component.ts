@@ -44,6 +44,7 @@ export class ExerciseWordsComponent {
   }
 
   moveWord = (ev: TouchEvent, wordId: number) => {
+    ev.preventDefault()
     if (!this.wordsPoints[wordId].elementRef) {
       const target = ev.target! as HTMLSpanElement;
       this.wordsPoints[wordId].elementRef = target;
@@ -61,6 +62,7 @@ export class ExerciseWordsComponent {
   }
 
   stopMoveWord = (ev: TouchEvent, wordId: number) => {
+    ev.preventDefault()
     this.lastTouchPosition = null;
 
     this.wordsPoints[wordId].setAbsWithRect();
