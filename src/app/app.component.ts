@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { Location } from '@angular/common';
 import { TelegramService } from './telegram.service';
+import { DatabaseService } from './services/database/database.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { TelegramService } from './telegram.service';
 })
 export class AppComponent implements OnInit{
   telegram = inject(TelegramService);
+  database = inject(DatabaseService);
 
   index: number = 0;
   constructor(private _location: Location) { }
@@ -26,5 +28,7 @@ export class AppComponent implements OnInit{
     this.telegram.onBackButtonClick(() => {
       this._location.back();
     });
+    await this.database.createOrUpdateUser(this.telegram.getUserTGId()!)
+    this.database.updateVisitStatus(this.telegram.getUserTGId()!)
   }
 }

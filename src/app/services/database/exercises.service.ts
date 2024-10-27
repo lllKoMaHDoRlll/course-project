@@ -11,15 +11,6 @@ class ExercisesService {
 
   constructor() { }
 
-  getUserProfilePicture = async (userId: number): Promise<string> => { // перенести в другой файл
-    const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
-      responseType: "blob"
-    });
-    console.log(result);
-    const href = URL.createObjectURL(result.data);
-    return href;
-  }
-
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
     const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
       headers: {

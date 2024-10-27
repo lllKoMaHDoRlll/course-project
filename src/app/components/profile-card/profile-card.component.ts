@@ -1,8 +1,7 @@
-
-import { Component, Input, OnInit } from '@angular/core';
+import { DatabaseService } from './../../services/database/database.service';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { UserData } from '../../interfaces/user-data';
 import { TonConnectButtonComponent } from '../ton-connect-button/ton-connect-button.component';
-import { exercisesService } from '../../services/database/exercises.service';
 
 @Component({
   selector: 'app-profile-card',
@@ -12,12 +11,12 @@ import { exercisesService } from '../../services/database/exercises.service';
   styleUrl: './profile-card.component.scss'
 })
 export class ProfileCardComponent implements OnInit {
- @Input({required: true}) userId!: number;
- @Input({required: true}) username!: string;
- profilePictureHref: string | undefined;
+  database = inject(DatabaseService);
+  @Input({required: true}) userId!: number;
+  @Input({required: true}) username!: string;
+  profilePictureHref: string | undefined;
 
- async ngOnInit() {
-  this.profilePictureHref = await exercisesService.getUserProfilePicture(this.userId);
-
- }
+  async ngOnInit() {
+    this.profilePictureHref = await this.database.getUserProfilePicture(this.userId);
+  }
 }
