@@ -23,6 +23,10 @@ export class TelegramService{
     miniApp.mount();
   }
 
+  getUserTGId(): number | undefined {
+    return this.launchParams?.initData?.user?.id;
+  }
+
   expand() {
     if (this.viewport.isMounted() && this.viewport.isExpanded() == false) this.viewport.expand();
   }
