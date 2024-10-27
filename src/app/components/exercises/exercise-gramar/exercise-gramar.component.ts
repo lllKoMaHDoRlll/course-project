@@ -6,7 +6,7 @@ import { ModalComponent } from '../../modal/modal.component';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { AnswerStatus, ExerciseGramarData } from '../../../interfaces/exercises-data';
 import { exercisesService } from '../../../services/database/exercises.service';
-import { TelegramService } from '../../../telegram.service';
+import { TelegramService } from '../../../services/telegram.service';
 
 @Component({
   selector: 'app-exercise-gramar',

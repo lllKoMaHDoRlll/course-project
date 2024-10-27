@@ -5,7 +5,7 @@ import { ExerciseChainData } from '../../../interfaces/exercises-data';
 import { exercisesService } from '../../../services/database/exercises.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
-import { TelegramService } from '../../../telegram.service';
+import { TelegramService } from '../../../services/telegram.service';
 
 @Component({
   selector: 'app-exercise-chain',

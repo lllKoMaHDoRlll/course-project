@@ -4,7 +4,7 @@ import { AchievementProgress } from '../../interfaces/achievements';
 import { faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
-import { TelegramService } from '../../telegram.service';
+import { TelegramService } from '../../services/telegram.service';
 
 const achievementsProgressesList: AchievementProgress[] = [
   {

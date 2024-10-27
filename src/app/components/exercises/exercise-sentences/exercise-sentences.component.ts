@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { LoadingForComponent } from "../../loading-for/loading-for.component";
 import { ModalComponent } from '../../modal/modal.component';
-import { TelegramService } from '../../../telegram.service';
+import { TelegramService } from '../../../services/telegram.service';
 
 
 @Component({

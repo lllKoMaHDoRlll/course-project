@@ -4,7 +4,7 @@ import { ExerciseCardData, exercisesMap } from '../../interfaces/exercise-card-d
 import {faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TelegramService } from '../../telegram.service';
+import { TelegramService } from '../../services/telegram.service';
 
 const exerciseCardDataList: ExerciseCardData[] = [
   {

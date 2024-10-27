@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ProfileCardComponent } from '../../components/profile-card/profile-card.component';
 import { LoadingForComponent } from '../../components/loading-for/loading-for.component';
-import { TelegramService } from '../../telegram.service';
+import { TelegramService } from '../../services/telegram.service';
 
 
 @Component({
