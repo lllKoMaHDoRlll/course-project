@@ -7,3 +7,12 @@ export interface AchievementProgress {
   completed: number;
   total: number;
 }
+
+export interface Achievement {
+  id: number;
+  type_id: number;
+  name: string;
+  description: string;
+  is_completed: boolean;
+  is_sbt_claimed: boolean;
+}
