@@ -1,0 +1,71 @@
+@import "./../../../styles";
+
+.achievement {
+  position: relative;
+  width: 100%;
+  border: 2px solid $color-light-gray;
+  border-radius: 1em;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "badge name"
+                       "badge progress"
+                       "badge sbt";
+  gap: 0 1em;
+
+  .achievement__badge {
+    grid-area: badge;
+    width: 100%;
+    aspect-ratio: 1;
+    vertical-align:middle;
+    margin: auto;
+  }
+
+  .achievement__name {
+    grid-area: name;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .achievement__progress {
+    grid-area: progress;
+    color: $color-gray;
+
+    .achievement__progress__status {
+      color: $color-white;
+      background-color: $color-deny;
+      font-size: .9rem;
+      padding: 0 1em;
+      margin-left: .3em;
+      border-radius: 1em;
+      opacity: .8;
+    }
+
+    .achievement__progress__status--completed {
+      background-color: $color-agree;
+    }
+  }
+
+  .achievement__sbt-claim-button {
+    grid-area: sbt;
+    font-size: 1.1rem !important;
+  }
+
+  .achievement__description-button {
+    background-color: $color-white;
+    border: 2px solid $color-light-gray;
+    color: $color-gray;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    margin: auto;
+    text-align: center;
+  }
+}
+
+
