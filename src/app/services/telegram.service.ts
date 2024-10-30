@@ -1,4 +1,4 @@
-import { backButton, EventListener, init, viewport, swipeBehavior, retrieveLaunchParams, LaunchParams, miniApp, RGB } from '@telegram-apps/sdk';
+import { backButton, EventListener, init, viewport, swipeBehavior, retrieveLaunchParams, LaunchParams, miniApp, RGB, popup, PopupButton } from '@telegram-apps/sdk';
 import { Injectable } from '@angular/core';
 
 
@@ -10,6 +10,7 @@ export class TelegramService{
   private swipeBehavior = swipeBehavior;
   private backButton = backButton;
   private miniApp = miniApp;
+  private popup = popup;
   launchParams: LaunchParams | undefined;
 
   constructor() { }
@@ -55,5 +56,13 @@ export class TelegramService{
     if (miniApp.setHeaderColor.isSupported() && miniApp.setHeaderColor.supports("color")) {
       miniApp.setHeaderColor(color);
     }
+  }
+
+  showPopup(title: string, message: string, buttons: PopupButton[]): Promise<string | null> {
+    return this.popup.open({
+      title: title,
+      message: message,
+      buttons: buttons
+    });
   }
 }
