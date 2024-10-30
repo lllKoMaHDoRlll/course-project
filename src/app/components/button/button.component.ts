@@ -1,11 +1,18 @@
 import { Component, Input } from '@angular/core';
 
 export type ColorThemes =
-  "primary" |
-  "accept"  |
-  "deny"    |
-  "neutral" |
-  "secondary"
+  "primary"   |
+  "accept"    |
+  "deny"      |
+  "neutral"   |
+  "secondary" |
+  "attention"
+;
+
+export type Sizes =
+  "large"  |
+  "normal" |
+  "small"
 ;
 
 @Component({
@@ -17,4 +24,5 @@ export type ColorThemes =
 })
 export class ButtonComponent {
   @Input() colorTheme: ColorThemes = "primary";
+  @Input() size: Sizes = "normal"
 }
