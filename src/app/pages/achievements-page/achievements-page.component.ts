@@ -5,11 +5,12 @@ import { Achievement } from '../../interfaces/achievements';
 import { DatabaseService } from '../../services/database/database.service';
 import { TelegramService } from '../../services/telegram.service';
 import { CommonModule } from '@angular/common';
+import { AchievementCardComponent } from "../../components/achievement-card/achievement-card.component";
 
 @Component({
   selector: 'app-achievements-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AchievementCardComponent],
   templateUrl: './achievements-page.component.html',
   styleUrl: './achievements-page.component.scss'
 })
