@@ -10,8 +10,16 @@ const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
   providedIn: 'root'
 })
 export class DatabaseService {
-
+  profilePicture: Promise<string> | null = null;
+  achievementsTypesProgresses: Promise<AchievementProgress[]> | [] = [];
   constructor(private telegram: TelegramService) { }
+
+  async init() {
+    this.profilePicture = this.getUserProfilePicture(this.telegram.getUserTGId()!);
+    this.achievementsTypesProgresses = this.getAchievementsTypesProgresses(this.telegram.getUserTGId()!);
+    //await this.createOrUpdateUser(this.telegram.getUserTGId()!);
+    this.updateVisitStatus(this.telegram.getUserTGId()!);
+  }
 
   getUserProfilePicture = async (userId: number): Promise<string> => {
     const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
@@ -22,23 +30,28 @@ export class DatabaseService {
     return href;
   }
 
-  createOrUpdateUser = async (userId: number, wallet: string | null = null) => {
-    const result = await axios.post(`${DB_HOST}/api/users`, {
-      user_id: userId,
-      wallet: wallet
-    });
-  }
+  // createOrUpdateUser = async (userId: number, wallet: string | null = null) => {
+  //   const result = await axios.post(`${DB_HOST}/api/users`, {
+  //     user_id: userId,
+  //     wallet: wallet
+  //   });
+  // }
 
   updateVisitStatus = async (userId: number) => {
     const result = await axios.post(`${DB_HOST}/api/achievements/visits?user_id=${userId}`);
     if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+      this.setAchievementsTypesProgresses(userId);
     }
   }
 
   getAchievementsTypesProgresses = async (userId: number): Promise<AchievementProgress[]> => {
     const result = await axios.get(`${DB_HOST}/api/achievements/types?user_id=${userId}`);
     return result.data.result as AchievementProgress[];
+  }
+
+  setAchievementsTypesProgresses = async (userId: number) => {
+    this.achievementsTypesProgresses = this.getAchievementsTypesProgresses(userId);
   }
 
   getAchievements = async (userId: number, achievementTypeId: number): Promise<Achievement[]> => {
