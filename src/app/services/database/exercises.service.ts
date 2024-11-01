@@ -1,3 +1,4 @@
+import { DatabaseService } from './database.service';
 import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import axios from "axios";
@@ -12,7 +13,7 @@ const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
 })
 export class ExercisesService {
 
-  constructor(private telegram: TelegramService) { }
+  constructor(private telegram: TelegramService, private database: DatabaseService) { }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
     const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
@@ -35,7 +36,8 @@ export class ExercisesService {
     );
     console.log(result);
     if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+      this.database.setAchievementsTypesProgresses(userId);
     }
     return result.data.result;
   }
@@ -61,7 +63,8 @@ export class ExercisesService {
       }
     });
     if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+      this.database.setAchievementsTypesProgresses(userId);
     }
     return result.data.result;
   }
@@ -89,7 +92,8 @@ export class ExercisesService {
       }
     });
     if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+      this.database.setAchievementsTypesProgresses(userId);
     }
     return result.data.result;
   }
@@ -115,7 +119,8 @@ export class ExercisesService {
       }
     });
     if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+      this.database.setAchievementsTypesProgresses(userId);
     }
     return result.data.result;
   }
