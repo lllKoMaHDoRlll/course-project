@@ -13,14 +13,14 @@ import { DatabaseService } from './services/database/database.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  telegram = inject(TelegramService);
-  database = inject(DatabaseService);
 
   index: number = 0;
-  constructor(private _location: Location) { }
+  constructor(private _location: Location, private telegram: TelegramService, private database: DatabaseService) { }
 
   async ngOnInit() {
     await this.telegram.init();
+    console.log("telegram inited");
+
     this.telegram.setHeaderColor("#089beb");
     this.telegram.expand();
     this.telegram.hideBackButton();
@@ -28,7 +28,11 @@ export class AppComponent implements OnInit{
     this.telegram.onBackButtonClick(() => {
       this._location.back();
     });
-    await this.database.createOrUpdateUser(this.telegram.getUserTGId()!)
-    this.database.updateVisitStatus(this.telegram.getUserTGId()!)
+
+    await this.database.init();
+    console.log("database inited");
+
+    // await this.database.createOrUpdateUser(this.telegram.getUserTGId()!)
+    // this.database.updateVisitStatus(this.telegram.getUserTGId()!)
   }
 }
