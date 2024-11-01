@@ -25,11 +25,14 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
 
-  telegram = inject(TelegramService);
   exercisesService = inject(ExercisesService);
 
-  constructor(private router: Router, private elementRef: ElementRef) {
-    this.telegram.showBackButton();
+  constructor(private router: Router, private elementRef: ElementRef, private telegram: TelegramService) {
+    while (!this.telegram.isInited) {
+      console.log(this.telegram.isInited);
+      this.telegram.showBackButton();
+      console.log(this.telegram.isInited);
+    }
   }
 
   async ngAfterViewInit() {
