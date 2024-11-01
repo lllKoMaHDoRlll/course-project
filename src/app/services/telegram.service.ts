@@ -14,6 +14,7 @@ export class TelegramService{
   private miniApp = miniApp;
   private popup = popup;
   launchParams: LaunchParams | undefined;
+  isInited: boolean = false;
 
   constructor(private router: Router) { }
 
@@ -24,6 +25,7 @@ export class TelegramService{
     if (this.swipeBehavior.isSupported()) this.swipeBehavior.mount();
     if (this.backButton.isSupported()) this.backButton.mount();
     miniApp.mount();
+    this.isInited = true;
   }
 
   getUserTGId(): number | undefined {
