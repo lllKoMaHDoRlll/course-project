@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../button/button.component';
 import { ModalComponent } from '../../modal/modal.component';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
 import { AnswerStatus, ExerciseGramarData } from '../../../interfaces/exercises-data';
-import { exercisesService } from '../../../services/database/exercises.service';
+import { ExercisesService } from '../../../services/database/exercises.service';
 import { TelegramService } from '../../../services/telegram.service';
 
 @Component({
@@ -23,13 +23,14 @@ export class ExerciseGramarComponent implements AfterViewInit{
   userPseudoAnswers: string[] = [];
 
   telegram = inject(TelegramService);
+  exercisesService = inject(ExercisesService)
 
   constructor() {
     this.telegram.showBackButton();
   }
 
   async ngAfterViewInit() {
-    this.exerciseData = await exercisesService.getRandomExerciseGramarData();
+    this.exerciseData = await this.exercisesService.getRandomExerciseGramarData();
     for(let i = 0; i < this.exerciseData.taskList.length; i++) {
       this.userPseudoAnswers[i] = "";
     }
@@ -51,14 +52,14 @@ export class ExerciseGramarComponent implements AfterViewInit{
     }
 
     this.answerStatus = "checking";
-    const res = await exercisesService.checkGramarAnswer(this.exerciseData!.id, this.userPseudoAnswers, this.telegram.getUserTGId()!);
+    const res = await this.exercisesService.checkGramarAnswer(this.exerciseData!.id, this.userPseudoAnswers, this.telegram.getUserTGId()!);
     this.answerStatus = res ? "correct" : "incorrect";
   }
 
   resetExercise = async () => {
     this.answerStatus = "not-answered";
     this.exerciseData = undefined;
-    this.exerciseData = await exercisesService.getRandomExerciseGramarData();
+    this.exerciseData = await this.exercisesService.getRandomExerciseGramarData();
     for(let i = 0; i < this.exerciseData.taskList.length; i++) {
       this.userPseudoAnswers[i] = "";
     }

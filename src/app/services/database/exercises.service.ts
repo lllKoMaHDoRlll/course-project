@@ -1,15 +1,18 @@
 import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import axios from "axios";
+import { TelegramService } from '../telegram.service';
+import { PopupButton } from '@telegram-apps/sdk';
 
-const DB_HOST = "https://tonolingo.ru";
+// const DB_HOST = "https://tonolingo.ru";
+const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
 
 @Injectable({
   providedIn: 'root'
 })
-class ExercisesService {
+export class ExercisesService {
 
-  constructor() { }
+  constructor(private telegram: TelegramService) { }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
     const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
@@ -31,6 +34,9 @@ class ExercisesService {
       }
     );
     console.log(result);
+    if (result.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+    }
     return result.data.result;
   }
 
@@ -54,6 +60,9 @@ class ExercisesService {
         user_id: userId
       }
     });
+    if (result.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+    }
     return result.data.result;
   }
 
@@ -79,6 +88,9 @@ class ExercisesService {
         user_id: userId
       }
     });
+    if (result.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+    }
     return result.data.result;
   }
 
@@ -102,6 +114,9 @@ class ExercisesService {
         user_id: userId
       }
     });
+    if (result.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+    }
     return result.data.result;
   }
 
@@ -206,5 +221,4 @@ class ElementPoint extends Point {
 
 }
 
-export const exercisesService = new ExercisesService();
 export {Point, ElementPoint};

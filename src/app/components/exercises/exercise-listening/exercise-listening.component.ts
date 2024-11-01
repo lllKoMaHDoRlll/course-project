@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
-import { exercisesService } from '../../../services/database/exercises.service';
+import { ExercisesService } from '../../../services/database/exercises.service';
 import { AnswerStatus, ExerciseListeningData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -27,13 +27,14 @@ export class ExerciseListeningComponent implements AfterViewInit {
   faPlay = faPlay;
 
   telegram = inject(TelegramService);
+  exercisesService = inject(ExercisesService)
 
   constructor(private router: Router) {
     this.telegram.showBackButton();
   }
 
   async ngAfterViewInit() {
-    this.exerciseListeningData = await exercisesService.getRandomExerciseListeningData();
+    this.exerciseListeningData = await this.exercisesService.getRandomExerciseListeningData();
 
     setTimeout(() => {
       this.audio = document.querySelector(".exercise-card__audio > audio") as HTMLAudioElement;
@@ -51,7 +52,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
     if (!answer) return;
     this.answerStatus = "checking";
 
-    const res = await exercisesService.checkListeningAnswer(this.exerciseListeningData?.id!, answer, this.telegram.getUserTGId()!);
+    const res = await this.exercisesService.checkListeningAnswer(this.exerciseListeningData?.id!, answer, this.telegram.getUserTGId()!);
     if (res) {
       this.answerStatus = "correct";
     }
@@ -61,7 +62,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
   resetExercise = async () => {
     this.exerciseListeningData = undefined;
     this.answerStatus = "not-answered";
-    this.exerciseListeningData = await exercisesService.getRandomExerciseListeningData();
+    this.exerciseListeningData = await this.exercisesService.getRandomExerciseListeningData();
 
     setTimeout(() => {
       this.audio = document.querySelector(".exercise-card__audio > audio") as HTMLAudioElement;

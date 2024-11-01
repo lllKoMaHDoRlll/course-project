@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import axios from "axios";
 import { AchievementProgress, Achievement } from '../../interfaces/achievements';
+import { TelegramService } from '../telegram.service';
 
-const DB_HOST = "https://tonolingo.ru";
+// const DB_HOST = "https://tonolingo.ru";
+const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
 
-  constructor() { }
+  constructor(private telegram: TelegramService) { }
 
   getUserProfilePicture = async (userId: number): Promise<string> => {
     const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
@@ -29,6 +31,9 @@ export class DatabaseService {
 
   updateVisitStatus = async (userId: number) => {
     const result = await axios.post(`${DB_HOST}/api/achievements/visits?user_id=${userId}`);
+    if (result.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements)
+    }
   }
 
   getAchievementsTypesProgresses = async (userId: number): Promise<AchievementProgress[]> => {

@@ -2,7 +2,7 @@
 import { Component, ElementRef, inject, OnInit, QueryList,ViewChild, ViewChildren } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { ExerciseChainData } from '../../../interfaces/exercises-data';
-import { exercisesService } from '../../../services/database/exercises.service';
+import { ExercisesService } from '../../../services/database/exercises.service';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
 import { TelegramService } from '../../../services/telegram.service';
@@ -25,6 +25,7 @@ export class ExerciseChainComponent implements OnInit {
     y: number
   }[] = [{x: 0, y: 0}];
   telegram = inject(TelegramService);
+  exercisesService = inject(ExercisesService);
 
   pseudoAnswer: string = "";
 
@@ -57,7 +58,7 @@ export class ExerciseChainComponent implements OnInit {
 
   addWord = async (lastWord: ExerciseChainData) => {
     await this.addWordNode(lastWord);
-    const newWord = await exercisesService.getWordForChain(lastWord.isPlaceHolder ? undefined : lastWord);
+    const newWord = await this.exercisesService.getWordForChain(lastWord.isPlaceHolder ? undefined : lastWord);
     if (!newWord) return;
     await this.addWordNode(newWord);
   }

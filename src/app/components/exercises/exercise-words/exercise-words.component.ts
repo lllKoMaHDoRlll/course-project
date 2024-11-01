@@ -1,7 +1,7 @@
 import { AnswerStatus } from './../../../interfaces/exercises-data';
 import { Component, ElementRef, inject, OnDestroy } from '@angular/core';
 import { ExerciseWordsData } from '../../../interfaces/exercises-data';
-import { ElementPoint, exercisesService } from '../../../services/database/exercises.service';
+import { ElementPoint, ExercisesService } from '../../../services/database/exercises.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
@@ -26,6 +26,7 @@ export class ExerciseWordsComponent {
   answerStatus: AnswerStatus = "not-answered";
 
   telegram = inject(TelegramService);
+  exercisesService = inject(ExercisesService)
 
   constructor(private router: Router, private elementRef: ElementRef) {
     this.telegram.showBackButton();
@@ -33,7 +34,7 @@ export class ExerciseWordsComponent {
 
 
   async ngAfterViewInit() {
-    this.exerciseData = await exercisesService.getRandomExerciseWordsData();
+    this.exerciseData = await this.exercisesService.getRandomExerciseWordsData();
     for (let i = 0; i < this.exerciseData.words.length; i++) {
       this.wordsPoints.push(new ElementPoint());
     }
@@ -105,7 +106,7 @@ export class ExerciseWordsComponent {
       answer[this.wordsPoints[i].fittedInto] = this.wordsPoints[i].elementRef!.innerText;
     }
     this.answerStatus = "checking"
-    const result = await exercisesService.checkWordsAnswer(this.exerciseData!.id, answer, this.telegram.getUserTGId()!);
+    const result = await this.exercisesService.checkWordsAnswer(this.exerciseData!.id, answer, this.telegram.getUserTGId()!);
     if (result) this.answerStatus = "correct";
     else this.answerStatus = "incorrect";
   }
@@ -118,7 +119,7 @@ export class ExerciseWordsComponent {
     this.answersSlots = [];
     this.answerStatus = "not-answered";
 
-    this.exerciseData = await exercisesService.getRandomExerciseWordsData();
+    this.exerciseData = await this.exercisesService.getRandomExerciseWordsData();
     for (let i = 0; i < this.exerciseData.words.length; i++) {
       this.wordsPoints.push(new ElementPoint());
     }
