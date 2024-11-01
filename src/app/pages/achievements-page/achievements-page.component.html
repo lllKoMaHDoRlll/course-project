@@ -1,3 +1,7 @@
-<div class="achievements-list">
-  <app-achievement-card class="achievements-list__item" [achievementData]="achievement" *ngFor="let achievement of achievements"/>
+<div class="container">
+  <app-loading-for [loadingForValue]="achievements.length > 0">
+    <div class="achievements-list">
+        <app-achievement-card class="achievements-list__item" [achievementData]="achievement" *ngFor="let achievement of achievements"/>
+    </div>
+  </app-loading-for>
 </div>
