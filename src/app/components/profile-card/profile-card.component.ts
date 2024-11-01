@@ -17,6 +17,6 @@ export class ProfileCardComponent implements OnInit {
   profilePictureHref: string | undefined;
 
   async ngOnInit() {
-    this.profilePictureHref = await this.database.getUserProfilePicture(this.userId);
+    this.profilePictureHref = await this.database.profilePicture!;
   }
 }

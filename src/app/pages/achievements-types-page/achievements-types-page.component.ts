@@ -34,7 +34,7 @@ export class AchievementsTypesPageComponent implements OnInit{
   }
 
   async ngOnInit() {
-    this.achievementsProgressesList = (await this.database.getAchievementsTypesProgresses(this.telegram.getUserTGId()!)).sort((a, b) => a.id - b.id);
+    this.achievementsProgressesList = (await this.database.achievementsTypesProgresses).sort((a, b) => a.id - b.id);
     for (let i = 0; i < this.achievementsProgressesList.length; i++) {
       this.achievementsProgressesList[i].icon = achievementsTypesIcons[i];
     }
