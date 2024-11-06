@@ -30,12 +30,12 @@ export class DatabaseService {
     return href;
   }
 
-  // createOrUpdateUser = async (userId: number, wallet: string | null = null) => {
-  //   const result = await axios.post(`${DB_HOST}/api/users`, {
-  //     user_id: userId,
-  //     wallet: wallet
-  //   });
-  // }
+  createOrUpdateUser = async (userId: number, wallet: string | null = null) => {
+    const result = await axios.post(`${DB_HOST}/api/users`, {
+      user_id: userId,
+      wallet: wallet
+    });
+  }
 
   updateVisitStatus = async (userId: number) => {
     const result = await axios.post(`${DB_HOST}/api/achievements/visits?user_id=${userId}`);
@@ -62,5 +62,15 @@ export class DatabaseService {
       }
     });
     return result.data.result as Achievement[];
+  }
+
+  claimSBT = async (userId: number, achievementId: number) => {
+    const result = await axios.post(
+      `${DB_HOST}/api/achievements/sbt`,
+      null,
+      {
+        params: {user_id: userId, achievement_id: achievementId}
+      }
+    );
   }
 }
