@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import tonConnectService from '../../services/ton-connect.service';
 import { DatabaseService } from '../../services/database/database.service';
 import { TelegramService } from '../../services/telegram.service';
+import TonConnectService from '../../services/ton-connect.service';
 
 
 @Component({
@@ -12,19 +13,13 @@ import { TelegramService } from '../../services/telegram.service';
   styleUrl: './ton-connect-button.component.scss'
 })
 export class TonConnectButtonComponent implements AfterViewInit, OnDestroy{
-  constructor(private database: DatabaseService, private telegram: TelegramService) { }
+  constructor(private database: DatabaseService, private telegram: TelegramService, private tonconnect: TonConnectService) { }
 
   ngAfterViewInit(): void {
-    tonConnectService.tonConnectUI.uiOptions = {buttonRootId: "ton-connect"};
-    tonConnectService.connector.onStatusChange(async (wallet) => {
-      if (wallet) {
-        console.log(wallet.account.address);
-        await this.database.createOrUpdateUser(this.telegram.getUserTGId()!, wallet.account.address);
-      }
-    })
+    this.tonconnect.tonConnectUI.uiOptions = {buttonRootId: "ton-connect"};
   }
 
   ngOnDestroy(): void {
-    tonConnectService.tonConnectUI.uiOptions = {buttonRootId: null};
+    this.tonconnect.tonConnectUI.uiOptions = {buttonRootId: null};
   }
 }
