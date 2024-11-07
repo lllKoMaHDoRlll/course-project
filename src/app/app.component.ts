@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { Location } from '@angular/common';
 import { TelegramService } from './services/telegram.service';
 import { DatabaseService } from './services/database/database.service';
+import TonConnectService from './services/ton-connect.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { DatabaseService } from './services/database/database.service';
 export class AppComponent implements OnInit{
 
   index: number = 0;
-  constructor(private _location: Location, private telegram: TelegramService, private database: DatabaseService) { }
+  constructor(private _location: Location, private telegram: TelegramService, private database: DatabaseService, private tonconnect: TonConnectService) { }
 
   async ngOnInit() {
     await this.telegram.init();
