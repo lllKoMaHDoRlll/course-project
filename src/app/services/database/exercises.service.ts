@@ -3,7 +3,6 @@ import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import axios from "axios";
 import { TelegramService } from '../telegram.service';
-import { PopupButton } from '@telegram-apps/sdk';
 
 // const DB_HOST = "https://tonolingo.ru";
 const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
@@ -16,11 +15,7 @@ export class ExercisesService {
   constructor(private telegram: TelegramService, private database: DatabaseService) { }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
-    const result = await axios.get(`${DB_HOST}/api/exercises/sentence`, {
-      headers: {
-        "bypass-tunnel-reminder": "*"
-      }
-    });
+    const result = await axios.get(`${DB_HOST}/api/exercises/sentence`);
     return result.data;
   }
 

@@ -32,8 +32,5 @@ export class AppComponent implements OnInit{
 
     await this.database.init();
     console.log("database inited");
-
-    // await this.database.createOrUpdateUser(this.telegram.getUserTGId()!)
-    // this.database.updateVisitStatus(this.telegram.getUserTGId()!)
   }
 }

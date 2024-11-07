@@ -17,7 +17,6 @@ export class DatabaseService {
   async init() {
     this.profilePicture = this.getUserProfilePicture(this.telegram.getUserTGId()!);
     this.achievementsTypesProgresses = this.getAchievementsTypesProgresses(this.telegram.getUserTGId()!);
-    //await this.createOrUpdateUser(this.telegram.getUserTGId()!);
     this.updateVisitStatus(this.telegram.getUserTGId()!);
   }
 
