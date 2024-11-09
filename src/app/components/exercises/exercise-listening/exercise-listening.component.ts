@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ButtonComponent } from '../../button/button.component';
@@ -26,10 +26,7 @@ export class ExerciseListeningComponent implements AfterViewInit {
 
   faPlay = faPlay;
 
-  telegram = inject(TelegramService);
-  exercisesService = inject(ExercisesService)
-
-  constructor(private router: Router) {
+  constructor(private router: Router, private telegram: TelegramService, private exercisesService: ExercisesService) {
     this.telegram.showBackButton();
   }
 

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, inject } from '@angular/core';
-import {ElementPoint, ExercisesService, Point} from './../../../services/database/exercises.service';
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
+import {ElementPoint, ExercisesService } from './../../../services/database/exercises.service';
 import { AnswerStatus, ExerciseSentencesData } from '../../../interfaces/exercises-data';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
@@ -25,14 +25,9 @@ export class ExerciseSentencesComponent implements AfterViewInit{
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
 
-  exercisesService = inject(ExercisesService);
 
-  constructor(private router: Router, private elementRef: ElementRef, private telegram: TelegramService) {
-    while (!this.telegram.isInited) {
-      console.log(this.telegram.isInited);
-      this.telegram.showBackButton();
-      console.log(this.telegram.isInited);
-    }
+  constructor(private router: Router, private elementRef: ElementRef, private telegram: TelegramService, private exercisesService: ExercisesService) {
+    this.telegram.showBackButton();
   }
 
   async ngAfterViewInit() {

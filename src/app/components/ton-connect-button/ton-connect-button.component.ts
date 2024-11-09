@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import tonConnectService from '../../services/ton-connect.service';
 import { DatabaseService } from '../../services/database/database.service';
 import { TelegramService } from '../../services/telegram.service';
 import TonConnectService from '../../services/ton-connect.service';

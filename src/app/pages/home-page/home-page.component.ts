@@ -12,9 +12,8 @@ import { TelegramService } from '../../services/telegram.service';
 })
 export class HomePageComponent {
   router = new Router();
-  telegram = inject(TelegramService);
 
-  constructor() {
+  constructor(private telegram: TelegramService) {
     this.telegram.hideBackButton();
   }
 

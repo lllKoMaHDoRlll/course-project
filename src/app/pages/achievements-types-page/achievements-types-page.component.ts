@@ -2,7 +2,6 @@ import { AchievementProgressCardComponent } from '../../components/achievement-p
 import { Component, inject, OnInit } from '@angular/core';
 import { AchievementProgress } from '../../interfaces/achievements';
 import { faHeadphones, faLanguage, faLink, faParagraph, faSpellCheck, faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { TelegramService } from '../../services/telegram.service';
 import { DatabaseService } from '../../services/database/database.service';

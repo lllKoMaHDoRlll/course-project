@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faR, faRotate } from '@fortawesome/free-solid-svg-icons';
+import { faRotate } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-loading',

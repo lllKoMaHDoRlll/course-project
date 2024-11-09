@@ -1,8 +1,7 @@
 import { AnswerStatus } from './../../../interfaces/exercises-data';
-import { Component, ElementRef, inject, OnDestroy } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ExerciseWordsData } from '../../../interfaces/exercises-data';
 import { ElementPoint, ExercisesService } from '../../../services/database/exercises.service';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 import { ExerciseAnswerCardComponent } from '../../exercise-answer-card/exercise-answer-card.component';
@@ -25,10 +24,7 @@ export class ExerciseWordsComponent {
   answersSlots: ElementPoint[] = [];
   answerStatus: AnswerStatus = "not-answered";
 
-  telegram = inject(TelegramService);
-  exercisesService = inject(ExercisesService)
-
-  constructor(private router: Router, private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private telegram: TelegramService, private exercisesService: ExercisesService) {
     this.telegram.showBackButton();
   }
 

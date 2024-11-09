@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { LoadingForComponent } from '../../loading-for/loading-for.component';
 import { ButtonComponent } from '../../button/button.component';
 import { ModalComponent } from '../../modal/modal.component';
@@ -22,10 +22,7 @@ export class ExerciseGramarComponent implements AfterViewInit{
   userInputs: HTMLInputElement[] | undefined;
   userPseudoAnswers: string[] = [];
 
-  telegram = inject(TelegramService);
-  exercisesService = inject(ExercisesService)
-
-  constructor() {
+  constructor(private telegram: TelegramService, private exercisesService: ExercisesService) {
     this.telegram.showBackButton();
   }
 

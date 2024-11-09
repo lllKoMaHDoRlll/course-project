@@ -12,11 +12,10 @@ import { TelegramService } from '../../services/telegram.service';
   styleUrl: './profile-page.component.scss'
 })
 export class ProfilePageComponent{
-  telegram = inject(TelegramService);
   userId: number;
   username: string;
 
-  constructor() {
+  constructor(private telegram: TelegramService) {
     this.telegram.showBackButton();
     this.userId = this.telegram.launchParams?.initData?.user?.id!;
     this.username = this.telegram.launchParams?.initData?.user?.username!;

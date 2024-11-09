@@ -1,6 +1,5 @@
 import { DatabaseService } from './../../services/database/database.service';
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { UserData } from '../../interfaces/user-data';
+import { Component, Input, OnInit } from '@angular/core';
 import { TonConnectButtonComponent } from '../ton-connect-button/ton-connect-button.component';
 
 @Component({
@@ -11,10 +10,11 @@ import { TonConnectButtonComponent } from '../ton-connect-button/ton-connect-but
   styleUrl: './profile-card.component.scss'
 })
 export class ProfileCardComponent implements OnInit {
-  database = inject(DatabaseService);
   @Input({required: true}) userId!: number;
   @Input({required: true}) username!: string;
   profilePictureHref: string | undefined;
+
+  constructor(private database: DatabaseService) { }
 
   async ngOnInit() {
     this.profilePictureHref = await this.database.profilePicture!;

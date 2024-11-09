@@ -44,9 +44,8 @@ const exerciseCardDataList: ExerciseCardData[] = [
 export class ExercisesPageComponent{
   exerciseCardDataList = exerciseCardDataList;
   exercisesMap = exercisesMap;
-  telegram = inject(TelegramService);
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private telegram: TelegramService) {
     this.telegram.showBackButton();
   }
 

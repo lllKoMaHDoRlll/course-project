@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, inject, OnInit, QueryList,ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList,ViewChild, ViewChildren } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { ExerciseChainData } from '../../../interfaces/exercises-data';
 import { ExercisesService } from '../../../services/database/exercises.service';
@@ -24,12 +24,10 @@ export class ExerciseChainComponent implements OnInit {
     x: number,
     y: number
   }[] = [{x: 0, y: 0}];
-  telegram = inject(TelegramService);
-  exercisesService = inject(ExercisesService);
 
   pseudoAnswer: string = "";
 
-  constructor() {
+  constructor(private telegram: TelegramService, private exercisesService: ExercisesService) {
     this.telegram.showBackButton();
   }
 
