@@ -5,3 +5,18 @@
   <app-button [size]="'small'" class="achievement__sbt-claim-button" (click)="claimSBT()">Получить SBT</app-button>
   <span class="achievement__description-button" (click)="showAchievementDescription()">?</span>
 </div>
+<app-modal [isModalOpen]="isModalOpened">
+  <div class="tx-status-modal">
+    <app-loading-for [loadingForValue]="txStatus !== undefined">
+      <div class="tx-status-modal__content">
+        <ng-container *ngIf="txStatus; else txFailed">
+          <p>Транзакция прошла успешно. Проверьте свой кошелек.</p>
+        </ng-container>
+        <ng-template #txFailed>
+          <p>Упс... Что-то пошло не так.</p>
+        </ng-template>
+      </div>
+      <app-button (click)="closeModal()">Закрыть</app-button>
+    </app-loading-for>
+  </div>
+</app-modal>
