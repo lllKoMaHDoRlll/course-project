@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { TelegramService } from '../../services/telegram.service';
 import { DatabaseService } from '../../services/database/database.service';
 import { Router } from '@angular/router';
+import { LoadingForComponent } from '../../components/loading-for/loading-for.component';
 
 const achievementsTypesIcons = [
   faStar,
@@ -20,7 +21,7 @@ const achievementsTypesIcons = [
 @Component({
   selector: 'app-achievements-types-page',
   standalone: true,
-  imports: [ CommonModule, FontAwesomeModule, AchievementProgressCardComponent],
+  imports: [ CommonModule, AchievementProgressCardComponent, LoadingForComponent],
   templateUrl: './achievements-types-page.component.html',
   styleUrl: './achievements-types-page.component.scss'
 })
