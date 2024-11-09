@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './components/header/header.component';
 import { Location } from '@angular/common';
 import { TelegramService } from './services/telegram.service';
 import { DatabaseService } from './services/database/database.service';
@@ -9,7 +8,7 @@ import TonConnectService from './services/ton-connect.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
