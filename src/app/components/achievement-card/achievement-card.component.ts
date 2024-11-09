@@ -43,11 +43,9 @@ export class AchievementCardComponent {
       }
       if (!this.tonconnect.getWallet() || !this.telegram.getUserTGId() || this.achievementData.is_sbt_claimed) return;
       this.isModalOpened = true;
-      const tx_hash = await this.database.claimSBT(this.telegram.getUserTGId()!, this.tonconnect.getWallet(), this.achievementData.id);
-      console.log(tx_hash);
-      this.txStatus = await this.tonconnect.getTxStatus(tx_hash);
-      if (this.txStatus) this.achievementData.is_sbt_claimed = true;
-      console.log(this.txStatus);
+      const {tx_hash, status} = await this.database.claimSBT(this.telegram.getUserTGId()!, this.tonconnect.getWallet(), this.achievementData.id);
+      this.txStatus = status;
+      if (status) this.achievementData.is_sbt_claimed = true;
     }
     catch (e) {
       console.log(e);

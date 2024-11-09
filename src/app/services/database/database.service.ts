@@ -63,8 +63,8 @@ export class DatabaseService {
     return result!.data.result as Achievement[];
   }
 
-  claimSBT = async (userId: number, wallet: string | undefined, achievementId: number): Promise<string> => {
-    if (!wallet) return "";
+  claimSBT = async (userId: number, wallet: string | undefined, achievementId: number): Promise<{"tx_hash": string, "status": boolean}> => {
+    if (!wallet) return {"tx_hash": "", "status": false};
     const result = await this.utils!.post(
       `${DB_HOST}/api/achievements/sbt`,
       null,
