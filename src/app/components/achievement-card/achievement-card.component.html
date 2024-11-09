@@ -1,8 +1,8 @@
 <div class="achievement">
-  <img class="achievement__badge" src="/assets/images/achievement_badge.png" alt="Achievement badge">
+  <img class="achievement__badge" [src]="'./assets/images/sbt/' + achievementData.id + '.png'" alt="Achievement badge">
   <span class="achievement__name">{{achievementData.name}}</span>
   <p class="achievement__progress">статус: <span [class]="'achievement__progress__status' + (achievementData.is_completed? ' achievement__progress__status--completed':'')">{{achievementData.is_completed ? "выполнено": "не выполнено"}}</span></p>
-  <app-button [size]="'small'" class="achievement__sbt-claim-button" (click)="claimSBT()">Получить SBT</app-button>
+  <app-button [size]="'small'" [colorTheme]="achievementData.is_sbt_claimed || !achievementData.is_completed ? 'neutral': 'primary'" class="achievement__sbt-claim-button" (click)="claimSBT()">Получить SBT</app-button>
   <span class="achievement__description-button" (click)="showAchievementDescription()">?</span>
 </div>
 <app-modal [isModalOpen]="isModalOpened">
