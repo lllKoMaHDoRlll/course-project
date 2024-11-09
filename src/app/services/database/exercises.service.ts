@@ -1,8 +1,8 @@
 import { DatabaseService } from './database.service';
 import { Injectable, ElementRef, QueryList } from '@angular/core';
 import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
-import axios from "axios";
 import { TelegramService } from '../telegram.service';
+import { UtilsService } from '../utils.service';
 
 // const DB_HOST = "https://tonolingo.ru";
 const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
@@ -12,15 +12,15 @@ const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
 })
 export class ExercisesService {
 
-  constructor(private telegram: TelegramService, private database: DatabaseService) { }
+  constructor(private telegram: TelegramService, private database: DatabaseService, private utils: UtilsService) { }
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
-    const result = await axios.get(`${DB_HOST}/api/exercises/sentence`);
-    return result.data;
+    const result = await this.utils.get(`${DB_HOST}/api/exercises/sentence`);
+    return result!.data;
   }
 
   async checkSentenceAnswer(sentenceId: number, answer: string, userId: number): Promise<boolean> {
-    const result = await axios.post(`${DB_HOST}/api/exercises/sentence`, {
+    const result = await this.utils.post(`${DB_HOST}/api/exercises/sentence`, {
         "id": sentenceId,
         "answer": answer
       }, {
@@ -30,26 +30,26 @@ export class ExercisesService {
       }
     );
     console.log(result);
-    if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+    if (result!.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result!.data.completed_achievements);
       this.database.setAchievementsTypesProgresses(userId);
     }
-    return result.data.result;
+    return result!.data.result;
   }
 
   getRandomExerciseWordsData = async (): Promise<ExerciseWordsData> => {
-    const response = await axios.get(`${DB_HOST}/api/exercises/words`)
+    const response = await this.utils.get(`${DB_HOST}/api/exercises/words`)
     const exerciseWordsData: ExerciseWordsData = {
-      id: response.data.id,
-      words: response.data.words,
-      translations: response.data.translations
+      id: response!.data.id,
+      words: response!.data.words,
+      translations: response!.data.translations
     };
 
     return exerciseWordsData;
   }
 
   checkWordsAnswer = async (exerciseId: number, words: string[], userId: number): Promise<boolean> => {
-    const result = await axios.post(`${DB_HOST}/api/exercises/words`, {
+    const result = await this.utils.post(`${DB_HOST}/api/exercises/words`, {
       id: exerciseId,
       words: words
     }, {
@@ -57,20 +57,20 @@ export class ExercisesService {
         user_id: userId
       }
     });
-    if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+    if (result!.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result!.data.completed_achievements);
       this.database.setAchievementsTypesProgresses(userId);
     }
-    return result.data.result;
+    return result!.data.result;
   }
 
   getRandomExerciseListeningData = async (): Promise<ExerciseListeningData> => {
-    const exercise_data = await axios.get(`${DB_HOST}/api/exercises/listening`, {
+    const exercise_data = await this.utils.get(`${DB_HOST}/api/exercises/listening`, {
       responseType: "blob"
     });
-    const href = URL.createObjectURL(exercise_data.data);
+    const href = URL.createObjectURL(exercise_data!.data);
     const regexp = new RegExp(/output_(?<id>[\d]+).wav/gm);
-    const exerciseId = Number.parseInt(regexp.exec(exercise_data.headers["content-disposition"])?.groups!["id"]!);
+    const exerciseId = Number.parseInt(regexp.exec(exercise_data!.headers["content-disposition"])?.groups!["id"]!);
     return {
       id: exerciseId,
       audioFilePath: href,
@@ -78,7 +78,7 @@ export class ExercisesService {
   }
 
   checkListeningAnswer = async (listeningId: number, answer: string, userId: number): Promise<boolean> => {
-    const result = await axios.post(`${DB_HOST}/api/exercises/listening`, {
+    const result = await this.utils.post(`${DB_HOST}/api/exercises/listening`, {
       id: listeningId,
       words: answer.split(" ")
     }, {
@@ -86,26 +86,26 @@ export class ExercisesService {
         user_id: userId
       }
     });
-    if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+    if (result!.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result!.data.completed_achievements);
       this.database.setAchievementsTypesProgresses(userId);
     }
-    return result.data.result;
+    return result!.data.result;
   }
 
   getRandomExerciseGramarData = async (): Promise<ExerciseGramarData> => {
-    const response = await axios.get(`${DB_HOST}/api/exercises/gramar`)
+    const response = await this.utils.get(`${DB_HOST}/api/exercises/gramar`)
     const exerciseGramarData: ExerciseGramarData = {
-      id: response.data.id,
-      taskDescription: response.data.desctiption,
-      taskList: response.data.tasks
+      id: response!.data.id,
+      taskDescription: response!.data.desctiption,
+      taskList: response!.data.tasks
     };
 
     return exerciseGramarData;
   }
 
   checkGramarAnswer = async (taskId: number, userAnswer: string[], userId: number): Promise<boolean> => {
-    const result = await axios.post(`${DB_HOST}/api/exercises/gramar`, {
+    const result = await this.utils.post(`${DB_HOST}/api/exercises/gramar`, {
       id: taskId,
       answers: userAnswer
     }, {
@@ -113,23 +113,23 @@ export class ExercisesService {
         user_id: userId
       }
     });
-    if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+    if (result!.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result!.data.completed_achievements);
       this.database.setAchievementsTypesProgresses(userId);
     }
-    return result.data.result;
+    return result!.data.result;
   }
 
   getWordForChain = async (prevWord?: ExerciseChainData): Promise<ExerciseChainData | null> => {
     let word;
     if (prevWord) {
-      word = (await axios.get(`${DB_HOST}/api/exercises/chain`, {params: {
+      word = (await this.utils.get(`${DB_HOST}/api/exercises/chain`, {params: {
         word: prevWord.word
-      }})).data;
+      }}))!.data;
       if (!word) return null;
     }
     else {
-      word = (await axios.get(`${DB_HOST}/api/exercises/chain`)).data;
+      word = (await this.utils.get(`${DB_HOST}/api/exercises/chain`))!.data;
     }
 
     const data: ExerciseChainData = {

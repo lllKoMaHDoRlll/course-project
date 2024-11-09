@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import axios from "axios";
 import { AchievementProgress, Achievement } from '../../interfaces/achievements';
 import { TelegramService } from '../telegram.service';
+import { UtilsService } from '../utils.service';
 
 // const DB_HOST = "https://tonolingo.ru";
 const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
@@ -12,7 +12,7 @@ const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
 export class DatabaseService {
   profilePicture: Promise<string> | null = null;
   achievementsTypesProgresses: Promise<AchievementProgress[]> | [] = [];
-  constructor(private telegram: TelegramService) { }
+  constructor(private telegram: TelegramService, private utils: UtilsService) { }
 
   async init() {
     this.profilePicture = this.getUserProfilePicture(this.telegram.getUserTGId()!);
@@ -21,31 +21,32 @@ export class DatabaseService {
   }
 
   getUserProfilePicture = async (userId: number): Promise<string> => {
-    const result = await axios.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
-      responseType: "blob"
+    const result = await this.utils.get(`${DB_HOST}/api/telegram/profile_photo?user_id=${userId}`, {
+      responseType: "blob",
+      timeout: 5000
     });
     console.log(result);
-    const href = URL.createObjectURL(result.data);
+    const href = URL.createObjectURL(result!.data);
     return href;
   }
 
   createOrUpdateUser = async (userId: number) => {
-    const result = await axios.post(`${DB_HOST}/api/users`, {
+    const result = await this.utils.post(`${DB_HOST}/api/users`, {
       user_id: userId
     });
   }
 
   updateVisitStatus = async (userId: number) => {
-    const result = await axios.post(`${DB_HOST}/api/achievements/visits?user_id=${userId}`);
-    if (result.data.completed_achievements) {
-      this.telegram.showAchievementsClaimPopup(result.data.completed_achievements);
+    const result = await this.utils.post(`${DB_HOST}/api/achievements/visits?user_id=${userId}`);
+    if (result!.data.completed_achievements) {
+      this.telegram.showAchievementsClaimPopup(result!.data.completed_achievements);
       this.setAchievementsTypesProgresses(userId);
     }
   }
 
   getAchievementsTypesProgresses = async (userId: number): Promise<AchievementProgress[]> => {
-    const result = await axios.get(`${DB_HOST}/api/achievements/types?user_id=${userId}`);
-    return result.data.result as AchievementProgress[];
+    const result = await this.utils.get(`${DB_HOST}/api/achievements/types?user_id=${userId}`);
+    return result!.data.result as AchievementProgress[];
   }
 
   setAchievementsTypesProgresses = async (userId: number) => {
@@ -53,18 +54,18 @@ export class DatabaseService {
   }
 
   getAchievements = async (userId: number, achievementTypeId: number): Promise<Achievement[]> => {
-    const result = await axios.get(`${DB_HOST}/api/achievements`, {
+    const result = await this.utils.get(`${DB_HOST}/api/achievements`, {
       params: {
         "user_id": userId,
         "type_id": achievementTypeId
       }
     });
-    return result.data.result as Achievement[];
+    return result!.data.result as Achievement[];
   }
 
   claimSBT = async (userId: number, wallet: string | undefined, achievementId: number): Promise<string> => {
     if (!wallet) return "";
-    const result = await axios.post(
+    const result = await this.utils!.post(
       `${DB_HOST}/api/achievements/sbt`,
       null,
       {
@@ -75,7 +76,7 @@ export class DatabaseService {
         }
       }
     );
-    console.log(result.data);
-    return result.data.result;
+    console.log(result!.data);
+    return result!.data.result;
   }
 }
