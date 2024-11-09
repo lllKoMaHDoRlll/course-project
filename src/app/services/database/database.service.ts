@@ -29,10 +29,9 @@ export class DatabaseService {
     return href;
   }
 
-  createOrUpdateUser = async (userId: number, wallet: string | null = null) => {
+  createOrUpdateUser = async (userId: number) => {
     const result = await axios.post(`${DB_HOST}/api/users`, {
-      user_id: userId,
-      wallet: wallet
+      user_id: userId
     });
   }
 
@@ -63,12 +62,17 @@ export class DatabaseService {
     return result.data.result as Achievement[];
   }
 
-  claimSBT = async (userId: number, achievementId: number): Promise<string> => {
+  claimSBT = async (userId: number, wallet: string | undefined, achievementId: number): Promise<string> => {
+    if (!wallet) return "";
     const result = await axios.post(
       `${DB_HOST}/api/achievements/sbt`,
       null,
       {
-        params: {user_id: userId, achievement_id: achievementId}
+        params: {
+          user_id: userId,
+          wallet: wallet,
+          achievement_id: achievementId
+        }
       }
     );
     console.log(result.data);

@@ -35,7 +35,6 @@ export default class TonConnectService {
   async setWallet(wallet: string | undefined) {
     if (!wallet || this.wallet == wallet) return;
     this.wallet = wallet;
-    await this.database.createOrUpdateUser(this.telegram.getUserTGId()!, this.wallet);
   }
 
   async getTxStatus(tx_hash: string): Promise<boolean> {

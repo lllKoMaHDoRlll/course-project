@@ -34,7 +34,7 @@ export class AchievementCardComponent {
   async claimSBT() {
     try {
       this.isModalOpened = true;
-      const tx_hash = "_eb9e5a45fa21aca00407320f6645090cef37e41ecd24f06d0ce450776c3e8f59";// await this.database.claimSBT(this.telegram.getUserTGId()!, this.achievementData.id);
+      const tx_hash = await this.database.claimSBT(this.telegram.getUserTGId()!, this.tonconnect.getWallet(), this.achievementData.id);
       console.log(tx_hash);
       this.txStatus = await this.tonconnect.getTxStatus(tx_hash);
       console.log(this.txStatus);
