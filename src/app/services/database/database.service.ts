@@ -63,7 +63,7 @@ export class DatabaseService {
     return result.data.result as Achievement[];
   }
 
-  claimSBT = async (userId: number, achievementId: number) => {
+  claimSBT = async (userId: number, achievementId: number): Promise<string> => {
     const result = await axios.post(
       `${DB_HOST}/api/achievements/sbt`,
       null,
@@ -71,5 +71,7 @@ export class DatabaseService {
         params: {user_id: userId, achievement_id: achievementId}
       }
     );
+    console.log(result.data);
+    return result.data.result;
   }
 }
