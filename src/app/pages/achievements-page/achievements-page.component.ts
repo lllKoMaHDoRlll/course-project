@@ -16,10 +16,10 @@ import { LoadingForComponent } from '../../components/loading-for/loading-for.co
   styleUrl: './achievements-page.component.scss'
 })
 export class AchievementsPageComponent implements OnInit{
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private database: DatabaseService, private telegram: TelegramService) {
+    this.telegram.showBackButton();
+  }
   achievementTypeId = Number(this.route.snapshot.paramMap.get("type_id"));
-  database = inject(DatabaseService);
-  telegram = inject(TelegramService);
   achievements: Achievement[] = [];
   async ngOnInit() {
     this.achievements = await this.database.getAchievements(this.telegram.getUserTGId()!, this.achievementTypeId!);
