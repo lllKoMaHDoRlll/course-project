@@ -4,8 +4,7 @@ import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseS
 import { TelegramService } from '../telegram.service';
 import { UtilsService } from '../utils.service';
 
-// const DB_HOST = "https://tonolingo.ru";
-const DB_HOST = "https://k12n97jx-8000.euw.devtunnels.ms" // testing purposes
+const DB_HOST = "https://tonolingo.ru";
 
 @Injectable({
   providedIn: 'root'
