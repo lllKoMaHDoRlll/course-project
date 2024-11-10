@@ -83,5 +83,39 @@
 
   .tx-status-modal__content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+
+    .tx-status-modal__content__icon--success {
+      color: $color-agree;
+      font-size: 4rem;
+    }
+
+    .tx-status-modal__content__icon--failure {
+      color: $color-deny;
+      font-size: 4rem;
+    }
+
+    .tx-status-modal__content__status {
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .tx-status-modal__content__tonviewer {
+      text-align: center;
+
+      a {
+        background-color: $color-purple-gray;
+        padding: .2em .5em;
+        margin-top: .2em;
+        border-radius: 1em;
+        color: $color-white;
+        font-weight: 700;
+      }
+    }
   }
 }

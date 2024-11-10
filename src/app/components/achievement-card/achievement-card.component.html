@@ -10,10 +10,14 @@
     <app-loading-for [loadingForValue]="txStatus !== undefined">
       <div class="tx-status-modal__content">
         <ng-container *ngIf="txStatus; else txFailed">
-          <p>Транзакция прошла успешно. Проверьте свой кошелек.</p>
+          <fa-icon class="tx-status-modal__content__icon--success" [icon]="faCircleCheck"/>
+          <p class="tx-status-modal__content__status">Транзакция прошла успешно. <br>Проверьте свой кошелек.</p>
+          <p class="tx-status-modal__content__tonviewer">Просмотреть транзакцию: <a class="" (click)="openLink('http://testnet.tonviewer.com/transaction/' + txHash)">Ton Viewer</a></p>
         </ng-container>
         <ng-template #txFailed>
-          <p>Упс... Что-то пошло не так.</p>
+          <fa-icon class="tx-status-modal__content__icon--failure" [icon]="faCircleXmark"/>
+          <p class="tx-status-modal__content__status">Упс... Что-то пошло не так.</p>
+          <p class="tx-status-modal__content__tonviewer">Просмотреть транзакцию: <a class="" (click)="openLink('http://testnet.tonviewer.com/transaction/' + txHash)">Ton Viewer</a></p>
         </ng-template>
       </div>
       <app-button (click)="closeModal()">Закрыть</app-button>

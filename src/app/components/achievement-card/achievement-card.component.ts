@@ -7,11 +7,13 @@ import TonConnectService from '../../services/ton-connect.service';
 import { ModalComponent } from '../modal/modal.component';
 import { LoadingForComponent } from '../loading-for/loading-for.component';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-achievement-card',
   standalone: true,
-  imports: [ButtonComponent, ModalComponent, LoadingForComponent, CommonModule],
+  imports: [ButtonComponent, ModalComponent, LoadingForComponent, CommonModule, FontAwesomeModule],
   templateUrl: './achievement-card.component.html',
   styleUrl: './achievement-card.component.scss'
 })
@@ -19,6 +21,10 @@ export class AchievementCardComponent {
   @Input({required: true}) achievementData!: Achievement;
   isModalOpened = false;
   txStatus: boolean | undefined;
+  txHash: string | undefined;
+
+  faCircleCheck = faCircleCheck;
+  faCircleXmark = faCircleXmark;
 
   constructor(private database: DatabaseService, private telegram: TelegramService, private tonconnect: TonConnectService) { }
 
@@ -44,6 +50,7 @@ export class AchievementCardComponent {
       if (!this.tonconnect.getWallet() || !this.telegram.getUserTGId() || this.achievementData.is_sbt_claimed) return;
       this.isModalOpened = true;
       const {tx_hash, status} = await this.database.claimSBT(this.telegram.getUserTGId()!, this.tonconnect.getWallet(), this.achievementData.id);
+      this.txHash = tx_hash;
       this.txStatus = status;
       if (status) this.achievementData.is_sbt_claimed = true;
     }
@@ -55,5 +62,9 @@ export class AchievementCardComponent {
   async closeModal() {
     this.isModalOpened = false;
     this.txStatus = undefined;
+  }
+
+  async openLink(url: string) {
+    window.open(url);
   }
 }
