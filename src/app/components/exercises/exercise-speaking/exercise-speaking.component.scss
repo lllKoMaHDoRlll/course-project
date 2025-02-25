@@ -1,0 +1,27 @@
+@import "./../../../../styles";
+
+.exercise-card {
+  border: 1px solid $color-light-gray;
+  border-radius: 1em;
+  max-width: 75%;
+  margin: auto auto;
+  font-size: 1.5rem;
+  padding: 1em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+
+  .exercise-card__recording {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.mic {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+}
