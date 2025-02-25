@@ -138,6 +138,23 @@ export class ExercisesService {
     console.log(data);
     return data;
   }
+
+  checkAuditionAnswer = async (taskId: number, audioBlob: Blob, userId: Number): Promise<boolean> => {
+    const formData = new FormData();
+    const filename = `answer-${userId}.wav`;
+    const file = new File([audioBlob], filename, {type: "audio/wav"});
+    formData.append('audio_file', file);
+    formData.append('id', taskId.toString());
+    const result = await this.utils.post(`${DB_HOST}/api/exercises/audition`, formData, {
+      params: {
+        user_id: userId
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return result!.data;
+  }
 }
 
 class Point {
