@@ -9,6 +9,7 @@ import { ExerciseGramarComponent } from './components/exercises/exercise-gramar/
 import { ExerciseChainComponent } from './components/exercises/exercise-chain/exercise-chain.component';
 import { AchievementsTypesPageComponent } from './pages/achievements-types-page/achievements-types-page.component';
 import { AchievementsPageComponent } from './pages/achievements-page/achievements-page.component';
+import { ExerciseSpeakingComponent } from './components/exercises/exercise-speaking/exercise-speaking.component';
 
 
 export const routes: Routes = [
@@ -22,5 +23,6 @@ export const routes: Routes = [
   {path: "exercises/words", component: ExerciseWordsComponent},
   {path: "exercises/listening", component: ExerciseListeningComponent},
   {path: "exercises/gramar", component: ExerciseGramarComponent},
-  {path: "exercises/chain", component: ExerciseChainComponent}
+  {path: "exercises/chain", component: ExerciseChainComponent},
+  {path: "exercises/speaking", component: ExerciseSpeakingComponent},
 ];

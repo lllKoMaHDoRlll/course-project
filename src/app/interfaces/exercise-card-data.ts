@@ -11,5 +11,6 @@ export const exercisesMap = new Map<number, string>([
   [1, "words"],
   [2, "listening"],
   [3, "gramar"],
-  [4, "chain"]
+  [4, "chain"],
+  [5, "speaking"],
 ]);

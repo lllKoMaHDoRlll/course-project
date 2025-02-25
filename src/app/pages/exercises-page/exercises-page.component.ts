@@ -32,6 +32,11 @@ const exerciseCardDataList: ExerciseCardData[] = [
     icon: faLink,
     id: 4
   },
+  {
+    name: "Произношение",
+    icon: faHeadphones,
+    id: 5
+  },
 ];
 
 @Component({
