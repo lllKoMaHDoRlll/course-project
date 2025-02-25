@@ -1,0 +1,15 @@
+@import "./../../../styles";
+
+.audio-recorder {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .audio-recorder__button {
+
+    fa-icon {
+      color: $color-light-gray;
+      font-size: 2rem;
+    }
+  }
+}

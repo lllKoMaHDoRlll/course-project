@@ -1,0 +1,9 @@
+<div class="audio-recorder">
+  <div class="audio-recorder__button">
+    <fa-icon [icon]="activeIcon" (click)="handleRecordClick()"/>
+  </div>
+  <div class="audio-recorder__output">
+    <audio #audioRef controls>
+    </audio>
+  </div>
+</div>
