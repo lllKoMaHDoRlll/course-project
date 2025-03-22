@@ -20,6 +20,7 @@ export class AudioRecorderComponent {
   activeIcon = this.icons.mic;
 
   private audioChunks: Blob[] = [];
+  private audioBlob: Blob | undefined;
   isRecording = false;
   audioUrl: string | null = null;
   private mediaRecorder: MediaRecorder | null = null;
@@ -28,19 +29,22 @@ export class AudioRecorderComponent {
 
   private startRecording = () => {
     if (!this.mediaRecorder) return;
-    this.mediaRecorder.start();
     this.isRecording = true;
     this.audioChunks = [];
     this.audioUrl = null;
+    this.audioBlob = undefined;
+    this.mediaRecorder.start();
   }
 
   private stopRecording = () => {
     if (!this.mediaRecorder) return;
-    this.mediaRecorder.stop();
     this.isRecording = false;
+    this.mediaRecorder.stop();
+
   }
 
   handleRecordClick = () => {
+    console.log("Clicked");
     if (!this.isRecording) {
       this.startRecording();
       this.activeIcon = this.icons.stop;
@@ -53,7 +57,11 @@ export class AudioRecorderComponent {
   async ngOnInit(): Promise<void> {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true});
-      this.mediaRecorder = new MediaRecorder(stream);
+      this.mediaRecorder = new MediaRecorder(stream, {
+        mimeType: "audio/mp4",
+        audioBitsPerSecond: 16000
+      });
+
 
       this.mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
@@ -62,16 +70,17 @@ export class AudioRecorderComponent {
       }
 
       this.mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(this.audioChunks, {type: "audio/wav"});
-        this.audioUrl = URL.createObjectURL(audioBlob);
+        this.audioBlob = new Blob(this.audioChunks, {type: "audio/mp4;codecs=opus"});
+        this.audioUrl = URL.createObjectURL(this.audioBlob);
         this.audioEl.nativeElement.src = this.audioUrl!;
         this.audioEl.nativeElement.load();
         this.audioRecorded.emit({
           audioURL: this.audioUrl!,
-          audioBlob: audioBlob
+          audioBlob: this.audioBlob!
         });
       }
     } catch (error) {
+      alert(`An error was occured: ${error}`);
       console.log(`An error was occured: ${error}`);
     }
   }
