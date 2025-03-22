@@ -1,6 +1,6 @@
 import { DatabaseService } from './database.service';
-import { Injectable, ElementRef, QueryList } from '@angular/core';
-import { ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
+import { Injectable } from '@angular/core';
+import { ExerciseAuditionData, ExerciseChainData, ExerciseGramarData, ExerciseListeningData, ExerciseSentencesData, ExerciseWordsData } from '../../interfaces/exercises-data';
 import { TelegramService } from '../telegram.service';
 import { UtilsService } from '../utils.service';
 
@@ -15,6 +15,11 @@ export class ExercisesService {
 
   getRandomExerciseSentenceData = async (): Promise<ExerciseSentencesData> => {
     const result = await this.utils.get(`${DB_HOST}/api/exercises/sentence`);
+    return result!.data;
+  }
+
+  getRandomExerciseAuditionData = async (): Promise<ExerciseAuditionData> => {
+    const result = await this.utils.get(`${DB_HOST}/api/exercises/audition`);
     return result!.data;
   }
 
@@ -141,8 +146,8 @@ export class ExercisesService {
 
   checkAuditionAnswer = async (taskId: number, audioBlob: Blob, userId: Number): Promise<boolean> => {
     const formData = new FormData();
-    const filename = `answer-${userId}.wav`;
-    const file = new File([audioBlob], filename, {type: "audio/wav"});
+    const filename = `answer-${userId}.webm`;
+    const file = new File([audioBlob], filename, {type: "audio/webm;codecs=opus"});
     formData.append('audio_file', file);
     formData.append('id', taskId.toString());
     const result = await this.utils.post(`${DB_HOST}/api/exercises/audition`, formData, {
@@ -153,7 +158,7 @@ export class ExercisesService {
         'Content-Type': 'multipart/form-data'
       }
     });
-    return result!.data;
+    return result!.data.result;
   }
 }
 
