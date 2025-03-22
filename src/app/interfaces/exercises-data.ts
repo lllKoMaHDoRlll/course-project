@@ -27,6 +27,11 @@ export interface ExerciseChainData {
   word: string;
 }
 
+export interface ExerciseAuditionData {
+  id: number;
+  sentence: string;
+}
+
 export type AnswerStatus = "correct"   |
                            "incorrect" |
                            "checking"  |
