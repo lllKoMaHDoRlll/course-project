@@ -1,12 +1,17 @@
 <div class="container">
-  <div class="exercise-card light-shadow">
-    <div class="exercise-card__task">
-      <p>
-        Hello world!
-      </p>
+  <app-loading-for [loadingForValue]="exerciseData">
+    <div class="exercise-card light-shadow">
+      <div class="exercise-card__task">
+        <p>
+          {{ exerciseData?.sentence }}
+        </p>
+      </div>
+      <div class="exercise-card__recording">
+        <app-audio-recorder (audioRecorded)="handleRecordedAudio($event)"/>
+      </div>
     </div>
-    <div class="exercise-card__recording">
-      <app-audio-recorder (audioRecorded)="handleRecordedAudio($event)"/>
-    </div>
-  </div>
+  </app-loading-for>
 </div>
+<app-modal [isModalOpen]="answerStatus != 'not-answered'">
+  <app-exercise-answer-card [answerStatus]="answerStatus" (exerciseReseted)="resetExercise()"/>
+</app-modal>
